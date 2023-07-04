@@ -1,7 +1,7 @@
 export interface UserSchema {
     id: number;
     username: string;
-    dateJoined: string
+    dateJoined: string;
 }
 
 export interface PollSchema {
@@ -22,4 +22,12 @@ interface PollOptionSchema {
     votes: number;
     percentage: number;
     voters: string[];
+}
+
+export interface CommentSchema {
+    id: number;
+    creator: string;
+    poll: string;
+    content: string;
+    timestamp: string;
 }

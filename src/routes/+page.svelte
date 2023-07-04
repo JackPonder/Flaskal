@@ -21,14 +21,14 @@
   <div class="row">
     <div class="col-md-6 offset-md-1">
       <div class="card d-grid my-4 p-3">
-        <a href="/" class="btn btn-outline-secondary">Create a Poll</a>
+        <a href="/create" class="btn btn-outline-secondary">Create a Poll</a>
       </div>
       {#each data.polls as poll}
-        <Poll poll={poll} />
+        <Poll {poll} />
       {/each}
     </div>
     <div class="col-md-4">
-      <SideContent />
+      <SideContent linkCreate />
     </div>
   </div>
 </div>

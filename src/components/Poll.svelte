@@ -3,7 +3,7 @@
   export let poll: PollSchema;
   export let showVotes = true;
 
-  const submitVote = (event: any) => {
+  const submitVote = (event: Event, voteId: number) => {
     event.preventDefault();
   }
 </script>
@@ -30,7 +30,8 @@
         <form>
           {#each poll.options as option}
             <div class="d-grid mb-2">
-              <button class="btn btn-outline-secondary text-start" type="submit" on:click={submitVote}>
+              <button class="btn btn-outline-secondary text-start" 
+                type="submit" on:click={event => submitVote(event, option.id)}>
                 {option.name}
               </button>
             </div>
