@@ -5,9 +5,9 @@
 
 <div class="card my-4">
   <div class="card-body">
-    <div class="card-title">
-      {comment.creator}
-    </div>
+    <h6 class="card-title">
+      {comment.creator} - {new Date(comment.timestamp).toDateString()}
+    </h6>
     <div class="card-text">
       {comment.content}
     </div>

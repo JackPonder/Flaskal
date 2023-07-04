@@ -23,9 +23,9 @@
             </div>
           </div>
         {/each}
-        <div>
+        <a href={`/polls/${poll.id}`} class="text-decoration-none text-body">
           {poll.totalVotes} Votes
-        </div>
+        </a>
       {:else}
         <form>
           {#each poll.options as option}

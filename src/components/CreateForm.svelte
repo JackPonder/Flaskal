@@ -21,7 +21,7 @@
 </script>
 
 <form class="card my-4" method="post">
-  <div class="card-body m-2">
+  <div class="card-body m-2 mt-3">
     <h5 class="card-title">
       Create a Poll
     </h5>
@@ -44,24 +44,22 @@
         </span>
       </div>        
     {/each}
-    <div class="mb-3">
-      <div class="row">
-        <div class="col d-grid">
-          <button class="btn btn-outline-secondary" type="button" on:click={addOption}>
-            Add Option
-          </button>
-        </div>
-        <div class="col d-grid">
-          <select class="form-select">
-            <option value="">Add Tag</option>
-            {#each tagOptions as tag}
-              <option value={tag}>{tag}</option>
-            {/each}
-          </select>
-        </div>
-        <div class="col d-grid">
-          <button class="btn btn-primary" type="submit" on:click={submitPoll}>Create</button>
-        </div>
+    <div class="row mb-2">
+      <div class="col d-grid">
+        <button class="btn btn-outline-secondary" type="button" on:click={addOption}>
+          Add Option
+        </button>
+      </div>
+      <div class="col d-grid">
+        <select class="form-select">
+          <option value="">Add Tag</option>
+          {#each tagOptions as tag}
+            <option value={tag}>{tag}</option>
+          {/each}
+        </select>
+      </div>
+      <div class="col d-grid">
+        <button class="btn btn-primary" type="submit" on:click={submitPoll}>Create</button>
       </div>
     </div>
   </div>

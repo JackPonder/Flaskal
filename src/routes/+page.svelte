@@ -1,7 +1,6 @@
 <script lang="ts">
   import { Poll, SideContent } from "../components";
-  import type { PageData } from "./$types";
-  export let data: PageData
+  export let data;
 </script>
 
 <style>
