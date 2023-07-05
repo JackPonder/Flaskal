@@ -1,6 +1,6 @@
 <script lang="ts">
   import { LoginForm, RegisterForm } from ".";
-  import type { UserSchema } from "../schemas";
+  import type { UserSchema } from "$lib/schemas";
   let user: UserSchema;
 </script>
 

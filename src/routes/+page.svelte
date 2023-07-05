@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Poll, SideContent } from "../components";
+  import { Poll, SideContent } from '$lib/components';
   export let data;
 </script>
 

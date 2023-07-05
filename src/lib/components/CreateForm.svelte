@@ -15,6 +15,9 @@
     "Sports", "Art", "Technology", "Food",
   ];
 
+  let title: string, tag: string;
+  let options: string[] = [];
+  
   const submitPoll = (event: Event) => {}
 </script>
 
@@ -25,18 +28,18 @@
     </h5>
     <div class="mb-3">
       <label for="pollTitle" class="form-label">Title</label>
-      <input type="text" class="form-control" placeholder="Poll Title" required>
+      <input type="text" class="form-control" placeholder="Poll Title" bind:value={title} required>
     </div>
     <div class="mb-3">
       <label for="pollOption1" class="form-label">Options</label>
-      <input type="text" class="form-control" placeholder="Option 1" required>
+      <input type="text" class="form-control" placeholder="Option 1" bind:value={options[0]} required>
     </div>
     <div class="mb-3">
-      <input type="text" class="form-control" placeholder="Option 2" required>
+      <input type="text" class="form-control" placeholder="Option 2" bind:value={options[1]} required>
     </div>
-    {#each new Array(numOptions - 2).fill(2).map((n, i) => n + i + 1) as num}
+    {#each new Array(numOptions - 2).fill(2).map((n, i) => n + i) as num}
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Option {num}" required>
+        <input type="text" class="form-control" placeholder="Option {num + 1}" bind:value={options[num]} required>
         <span class="input-group-text">
           <button type="button" class="btn-close" on:click={removeOption}></button>
         </span>
@@ -49,7 +52,7 @@
         </button>
       </div>
       <div class="col d-grid">
-        <select class="form-select">
+        <select class="form-select" bind:value={tag}>
           <option value="">Add Tag</option>
           {#each tagOptions as tag}
             <option value={tag}>{tag}</option>

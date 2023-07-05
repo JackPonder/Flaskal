@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { PollSchema } from "../schemas";
+  import type { PollSchema } from "$lib/schemas";
   export let poll: PollSchema;
   export let showVotes = true;
 

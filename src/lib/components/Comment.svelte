@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { CommentSchema } from "../schemas";
+  import type { CommentSchema } from "$lib/schemas";
   export let comment: CommentSchema;
 </script>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Poll, Comment, SideContent } from '../../../components/index.js';
+  import { Poll, Comment, SideContent } from '$lib/components';
   export let data;
 </script>
 

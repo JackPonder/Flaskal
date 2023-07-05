@@ -1,18 +1,19 @@
-import type { PollSchema, CommentSchema } from "../../../schemas";
+import type { PollSchema, CommentSchema } from "$lib/schemas";
+import { Api } from "$lib/api";
 import { error } from "@sveltejs/kit";
 
 export async function load({ params }) {
-    const pollRes = await fetch(`http://127.0.0.1:5000/polls/${params.slug}`);
+    const pollRes = await Api.get(`/polls/${params.slug}`);
     if (!pollRes.ok) {
         throw error(pollRes.status);
     }
 
-    const commentsRes = await fetch(`http://127.0.0.1:5000/polls/${params.slug}/comments`);
+    const commentsRes = await Api.get(`/polls/${params.slug}/comments`);
     if (!commentsRes.ok) {
         throw error(commentsRes.status);
     }
 
-    const poll: PollSchema = await pollRes.json();
-    const comments: CommentSchema[] = await commentsRes.json();
+    const poll: PollSchema = pollRes.body;
+    const comments: CommentSchema[] = commentsRes.body;
     return {poll, comments};
 }

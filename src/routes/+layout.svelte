@@ -1,5 +1,5 @@
 <script>
-  import { Navbar } from "../components";
+  import { Navbar } from "$lib/components";
 </script>
 
 <style>

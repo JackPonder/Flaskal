@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CreateForm, SideContent } from "../../components";
+  import { CreateForm, SideContent } from "$lib/components";
 </script>
 
 <div class="container">

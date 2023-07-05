@@ -1,12 +1,13 @@
-import type { PollSchema } from "../schemas";
+import type { PollSchema } from "$lib/schemas";
+import { Api } from "$lib/api";
 import { error } from "@sveltejs/kit";
 
 export async function load() {
-    const res = await fetch('http://127.0.0.1:5000/polls');
+    const res = await Api.get("/polls");
     if (!res.ok) {
         throw error(res.status);
     }
 
-    const polls: PollSchema[] = await res.json();
+    const polls: PollSchema[] = res.body;
     return {polls};
 }
