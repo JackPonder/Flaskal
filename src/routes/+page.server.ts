@@ -1,5 +1,5 @@
-import { error } from "@sveltejs/kit";
 import type { PollSchema } from "../schemas";
+import { error } from "@sveltejs/kit";
 
 export async function load() {
     const res = await fetch('http://127.0.0.1:5000/polls');

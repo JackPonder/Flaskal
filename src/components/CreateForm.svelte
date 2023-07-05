@@ -15,28 +15,26 @@
     "Sports", "Art", "Technology", "Food",
   ];
 
-  const submitPoll = (event: Event) => {
-    event.preventDefault();
-  }
+  const submitPoll = (event: Event) => {}
 </script>
 
-<form class="card my-4" method="post">
+<form class="card my-4" on:submit|preventDefault={submitPoll}>
   <div class="card-body m-2 mt-3">
     <h5 class="card-title">
       Create a Poll
     </h5>
     <div class="mb-3">
       <label for="pollTitle" class="form-label">Title</label>
-      <input type="text" class="form-control" placeholder="Poll Title" id="pollTitle" required>
+      <input type="text" class="form-control" placeholder="Poll Title" required>
     </div>
     <div class="mb-3">
       <label for="pollOption1" class="form-label">Options</label>
-      <input type="text" class="form-control" placeholder="Option 1" id="pollOption1" required>
+      <input type="text" class="form-control" placeholder="Option 1" required>
     </div>
     <div class="mb-3">
-      <input type="text" class="form-control" placeholder="Option 2" id="pollOption2" required>
+      <input type="text" class="form-control" placeholder="Option 2" required>
     </div>
-    {#each Array(numOptions - 2).fill(2).map((n, i) => n + i + 1) as num}
+    {#each new Array(numOptions - 2).fill(2).map((n, i) => n + i + 1) as num}
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Option {num}" required>
         <span class="input-group-text">
@@ -59,7 +57,7 @@
         </select>
       </div>
       <div class="col d-grid">
-        <button class="btn btn-primary" type="submit" on:click={submitPoll}>Create</button>
+        <button class="btn btn-primary" type="submit">Create</button>
       </div>
     </div>
   </div>
