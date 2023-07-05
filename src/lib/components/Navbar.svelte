@@ -1,14 +1,15 @@
 <script lang="ts">
-  import { LoginForm, RegisterForm } from ".";
-  import type { UserSchema } from "$lib/schemas";
-  let user: UserSchema;
+  import { Alert, LoginForm, RegisterForm } from ".";
+  import { user } from "$lib/stores";
+  
+  const logout = () => user.set(null);
 </script>
 
 <nav class="navbar navbar-dark bg-dark sticky-top">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="/">Flaskal</a>
-    {#if user}
-      <button class="text-white bg-dark border-0">
+    {#if $user}
+      <button class="text-white bg-dark border-0" on:click={logout}>
         Log Out
       </button>
     {:else}
@@ -18,5 +19,6 @@
     {/if}
 	</div>
 </nav>
+<Alert />
 <LoginForm />
 <RegisterForm />

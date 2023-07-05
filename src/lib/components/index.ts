@@ -1,4 +1,5 @@
 export { default as Navbar } from "./Navbar.svelte";
+export { default as Alert } from "./Alert.svelte";
 export { default as CreateForm } from "./CreateForm.svelte";
 export { default as LoginForm } from "./LoginForm.svelte";
 export { default as RegisterForm } from "./RegisterForm.svelte";
