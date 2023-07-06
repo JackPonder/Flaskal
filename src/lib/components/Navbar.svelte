@@ -1,8 +1,6 @@
 <script lang="ts">
   import { Alert, LoginForm, RegisterForm } from ".";
-  import { user } from "$lib/stores";
-  
-  let showLoginModal = false, showRegisterModal = false;
+  import { modals, user } from "$lib/stores";
   const logout = () => user.set(null);
 </script>
 
@@ -15,11 +13,11 @@
       Log Out
     </button>
   {:else}
-    <button class="text-white" on:click={() => showLoginModal = !showLoginModal}>
+    <button class="text-white" on:click={() => modals.set(1)}>
       Log In
     </button>
   {/if}
 </nav>
 <Alert />
-<LoginForm show={showLoginModal} showRegisterModal={() => {showLoginModal = !showLoginModal; showRegisterModal = !showRegisterModal}} />
-<RegisterForm show={showRegisterModal} />
+<LoginForm />
+<RegisterForm  />

@@ -3,8 +3,8 @@
   export let data;
 </script>
 
-<div class="grid grid-cols-12">
-  <div class="col-span-6 col-start-2">
+<div class="grid md:grid-cols-12 mx-auto max-w-lg md:max-w-6xl">
+  <div class="md:col-span-6 md:col-start-2">
     <Poll poll={data.poll} />
     <form class="border rounded-md my-4 mx-2 p-5">
       <label for="comment" class="block mb-2">Add a comment</label>
@@ -21,7 +21,7 @@
       <Comment {comment} />
     {/each}
   </div>
-  <div class="col-span-4">
+  <div class="md:col-span-4">
     <SideContent linkCreate />
   </div>
 </div>

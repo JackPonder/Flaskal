@@ -2,11 +2,11 @@
   import { CreateForm, SideContent } from "$lib/components";
 </script>
 
-<div class="grid grid-cols-12">
-  <div class="col-span-6 col-start-2">
+<div class="grid md:grid-cols-12 mx-auto max-w-lg md:max-w-6xl">
+  <div class="md:col-span-6 md:col-start-2">
     <CreateForm />
   </div>
-  <div class="col-span-4">
+  <div class="md:col-span-4">
     <SideContent />
   </div>
 </div>

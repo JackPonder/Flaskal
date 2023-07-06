@@ -7,8 +7,8 @@
   <h1 class="text-4xl font-semibold mb-2">Welcome to Flaskal!</h1>
   <h6 class="text-md font-semibold">Create polls for the community to answer</h6>
 </div>
-<div class="grid grid-cols-12 mx-28">
-  <div class="col-span-6 col-start-2">
+<div class="grid md:grid-cols-12 mx-auto max-w-lg md:max-w-6xl">
+  <div class="md:col-span-6 md:col-start-2">
     <div class="border border-gray-300 my-6 mx-2 p-4 rounded-md">
       <a href="/create" class="btn-white block">
         Create a Poll
@@ -18,7 +18,7 @@
       <Poll {poll} />
     {/each}
   </div>
-  <div class="col-span-4">
+  <div class="md:col-span-4">
     <SideContent linkCreate />
   </div>
 </div>

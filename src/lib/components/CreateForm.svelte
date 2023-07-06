@@ -1,13 +1,9 @@
 <script lang="ts">
   let numOptions = 2;
 
-  const addOption = () => {
-    numOptions = Math.min(numOptions + 1, 6);
-  }
+  const addOption = () => numOptions = Math.min(numOptions + 1, 6);
 
-  const removeOption = () => {
-    numOptions = Math.max(numOptions - 1, 2);
-  }
+  const removeOption = () => numOptions = Math.max(numOptions - 1, 2);
 
   const tagOptions = [
     "Movies", "Gaming", "Books", 
@@ -37,7 +33,7 @@
     <input type="text" class="form-input" placeholder="Option 2" bind:value={options[1]} required>
   </div>
   {#each new Array(numOptions - 2).fill(2).map((n, i) => n + i) as num}
-    <div class="flex justify-between w-full mb-4">
+    <div class="flex w-full mb-4">
       <input type="text" class="border rounded-l-md py-1.5 px-3 flex-grow" 
         placeholder="Option {num + 1}" bind:value={options[num]} required>
       <span class="border rounded-r-md px-2 flex items-center bg-gray-100">
@@ -45,17 +41,17 @@
       </span>
     </div>        
   {/each}
-  <div class="grid grid-cols-3 gap-4 mb-1">
-    <button class="btn-white" type="button" on:click={addOption}>
+  <div class="grid md:grid-cols-3 gap-4">
+    <button class="btn-white mb-1" type="button" on:click={addOption}>
       Add Option
     </button>
-    <select class="border rounded-md py-1.5 px-3" bind:value={tag}>
+    <select class="border rounded-md py-1.5 px-3 mb-1" bind:value={tag}>
       <option value="">Add Tag</option>
       {#each tagOptions as tag}
         <option value={tag}>{tag}</option>
       {/each}
     </select>
-    <button class="btn-blue" type="submit">
+    <button class="btn-blue mb-1" type="submit">
       Create
     </button>
   </div>
