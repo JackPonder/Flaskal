@@ -3,27 +3,25 @@
   export let data;
 </script>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-6 offset-md-1">
-      <Poll poll={data.poll} />
-      <form class="card my-4">
-        <div class="card-body">
-          <label for="comment" class="form-label">Add a comment</label>
-          <div class="input-group mb-2">
-            <textarea id="comment" class="form-control" placeholder="Add to the discussion!"></textarea>
-            <button class="btn btn-outline-secondary">
-              Comment
-            </button>
-          </div>
-        </div>
-      </form>
-      {#each data.comments as comment}
-        <Comment {comment} />
-      {/each}
-    </div>
-    <div class="col-md-4">
-      <SideContent linkCreate />
-    </div>
+<div class="grid grid-cols-12">
+  <div class="col-span-6 col-start-2">
+    <Poll poll={data.poll} />
+    <form class="border rounded-md my-4 mx-2 p-5">
+      <label for="comment" class="block mb-2">Add a comment</label>
+      <div class="w-full flex justify-between">
+        <textarea class="border rounded-l-md py-1.5 px-3 flex-grow" id="comment" 
+          placeholder="Add to the discussion!" rows=2></textarea>
+        <button class="text-center text-gray-500 border border-gray-500 px-3 
+          hover:text-white hover:bg-gray-500 duration-200 rounded-r-md">
+          Comment
+        </button>
+      </div>
+    </form>
+    {#each data.comments as comment}
+      <Comment {comment} />
+    {/each}
+  </div>
+  <div class="col-span-4">
+    <SideContent linkCreate />
   </div>
 </div>

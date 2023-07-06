@@ -3,13 +3,9 @@
   export let comment: CommentSchema;
 </script>
 
-<div class="card my-4">
-  <div class="card-body">
-    <h6 class="card-title">
-      {comment.creator} - {new Date(comment.timestamp).toDateString()}
-    </h6>
-    <div class="card-text">
-      {comment.content}
-    </div>
-  </div>
+<div class="border my-4 mx-2 rounded-md p-4">
+  <h6 class="font-semibold mb-1">
+    {comment.creator} - {new Date(comment.timestamp).toDateString()}
+  </h6>
+  <p>{comment.content}</p>
 </div>

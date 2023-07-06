@@ -21,47 +21,42 @@
   const submitPoll = (event: Event) => {}
 </script>
 
-<form class="card my-4" on:submit|preventDefault={submitPoll}>
-  <div class="card-body m-2 mt-3">
-    <h5 class="card-title">
-      Create a Poll
-    </h5>
-    <div class="mb-3">
-      <label for="pollTitle" class="form-label">Title</label>
-      <input type="text" class="form-control" placeholder="Poll Title" bind:value={title} required>
-    </div>
-    <div class="mb-3">
-      <label for="pollOption1" class="form-label">Options</label>
-      <input type="text" class="form-control" placeholder="Option 1" bind:value={options[0]} required>
-    </div>
-    <div class="mb-3">
-      <input type="text" class="form-control" placeholder="Option 2" bind:value={options[1]} required>
-    </div>
-    {#each new Array(numOptions - 2).fill(2).map((n, i) => n + i) as num}
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Option {num + 1}" bind:value={options[num]} required>
-        <span class="input-group-text">
-          <button type="button" class="btn-close" on:click={removeOption}></button>
-        </span>
-      </div>        
-    {/each}
-    <div class="row mb-2">
-      <div class="col d-grid">
-        <button class="btn btn-outline-secondary" type="button" on:click={addOption}>
-          Add Option
-        </button>
-      </div>
-      <div class="col d-grid">
-        <select class="form-select" bind:value={tag}>
-          <option value="">Add Tag</option>
-          {#each tagOptions as tag}
-            <option value={tag}>{tag}</option>
-          {/each}
-        </select>
-      </div>
-      <div class="col d-grid">
-        <button class="btn btn-primary" type="submit">Create</button>
-      </div>
-    </div>
+<form class="border rounded-md my-6 mx-2 p-6" on:submit|preventDefault={submitPoll}>
+  <h2 class="text-xl mb-2">
+    Create a Poll
+  </h2>
+  <div class="mb-4">
+    <label for="title" class="block mb-2">Title</label>
+    <input type="text" class="form-input" placeholder="Poll Title" bind:value={title} required>
+  </div>
+  <div class="mb-4">
+    <label for="options" class="block mb-2">Options</label>
+    <input type="text" class="form-input" placeholder="Option 1" bind:value={options[0]} required>
+  </div>
+  <div class="mb-4">
+    <input type="text" class="form-input" placeholder="Option 2" bind:value={options[1]} required>
+  </div>
+  {#each new Array(numOptions - 2).fill(2).map((n, i) => n + i) as num}
+    <div class="flex justify-between w-full mb-4">
+      <input type="text" class="border rounded-l-md py-1.5 px-3 flex-grow" 
+        placeholder="Option {num + 1}" bind:value={options[num]} required>
+      <span class="border rounded-r-md px-2 flex items-center bg-gray-100">
+        <button type="button" class="btn-close" on:click={removeOption}></button>
+      </span>
+    </div>        
+  {/each}
+  <div class="grid grid-cols-3 gap-4 mb-1">
+    <button class="btn-white" type="button" on:click={addOption}>
+      Add Option
+    </button>
+    <select class="border rounded-md py-1.5 px-3" bind:value={tag}>
+      <option value="">Add Tag</option>
+      {#each tagOptions as tag}
+        <option value={tag}>{tag}</option>
+      {/each}
+    </select>
+    <button class="btn-blue" type="submit">
+      Create
+    </button>
   </div>
 </form>

@@ -1,31 +1,36 @@
 <script lang="ts">
+  export let show = false;
+  export let showRegisterModal = () => {}
   let username: string, password: string;
   const login = async (event: SubmitEvent) => {}
 </script>
 
-<form class="modal" id="loginModal" tabindex="-1" on:submit|preventDefault={login}>
-  <div class="modal-dialog modal-dialog-centered" style="max-width: 425px;">
-    <div class="modal-content" style="border-radius: 0.5rem;">
-      <div class="modal-body mx-3 m-2">
-        <h1 class="text-center mb-4 py-2">Log In</h1>
-        <div class="mb-3">
-          <input bind:value={username} type="text" class="form-control" required placeholder="Enter Username">
-        </div>
-        <div class="mb-3">
-          <input bind:value={password} type="password" class="form-control" required placeholder="Enter Password">
-        </div>
-        <div class="d-grid mb-3">
-          <button type="submit" class="btn btn-outline-secondary btn-lg">Log In</button>
-        </div>
-        <p class="text-center">Forgot Password?</p>
-        <hr>
-        <div class="d-grid mb-3">
-          <button type="button" class="btn btn-primary btn-lg" data-bs-dismiss="modal"
-            data-bs-toggle="modal" data-bs-target="#registerModal">
-            Create a New Account
-          </button>
+<div id="loginModal" tabindex="-1" role="dialog"
+  class="fixed top-0 z-50 w-full h-full overflow-x-hidden overflow-y-auto {show ? "flex" : "hidden"}">
+  <div class="flex justify-center items-center w-full h-full bg-black bg-opacity-50">
+    <form class="relative bg-white rounded-lg max-w-sm mx-auto p-6 flex-grow" on:submit|preventDefault={login}>
+      <div class="grid grid-cols-8 pt-2 pb-8">
+        <h1 class="col-span-6 col-start-2 text-4xl text-center font-semibold">
+          Log In
+        </h1>
+        <div class="flex items-center justify-center mt-1">
+          <button type="button" class="btn-close" on:click={() => show = false}></button>          
         </div>
       </div>
-    </div>
+      <div class="mb-3">
+        <input type="text" placeholder="Enter Username" class="form-input" bind:value={username}>
+      </div>
+      <div class="mb-3">
+        <input type="password" placeholder="Enter Password" class="form-input" bind:value={password}>
+      </div>
+      <button type="submit" class="btn-white w-full">
+        Log In
+      </button>
+      <p class="text-center my-4">Forgot Password?</p>
+      <hr class="mb-4">
+      <button type="button" class="btn-blue w-full" on:click={showRegisterModal}>
+        Create A New Account
+      </button>
+    </form>
   </div>
-</form>
+</div>
