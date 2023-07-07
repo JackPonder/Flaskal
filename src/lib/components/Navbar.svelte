@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { Alert, LoginForm, RegisterForm } from ".";
   import { modals, user } from "$lib/stores";
-  const logout = () => user.set(null);
 </script>
 
 <nav class="bg-black py-3 px-4 flex justify-between sticky top-0">
@@ -9,7 +7,7 @@
     Flaskal
   </a>
   {#if $user}
-    <button class="text-white" on:click={logout}>
+    <button class="text-white" on:click={() => user.set(null)}>
       Log Out
     </button>
   {:else}
@@ -18,6 +16,3 @@
     </button>
   {/if}
 </nav>
-<Alert />
-<LoginForm />
-<RegisterForm  />

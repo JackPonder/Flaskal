@@ -1,14 +1,30 @@
 <script lang="ts">
   import type { PollSchema } from "$lib/schemas";
+  import { Api } from "$lib/api";
+  import { user, alerts } from "$lib/stores";
+
   export let poll: PollSchema;
-  export let showVotes = true;
+  $: showVotes = $user ? poll.voters.includes($user.username) : true;
 
   let vote: number;
-  const submitVote = (event: Event) => {}
+
+  const submitVote = async () => {
+    if ($user === null) {
+      alerts.set({message: "You must be logged in to vote.", type: "danger"});
+      return;
+    }
+
+    const response = await Api.patch(`/polls/${poll.id}/vote`, {vote});
+    if (response.ok) {
+      poll = response.body;
+    } else {
+      alerts.set({message: "Something went wrong.", type: "danger"});
+    }
+  }
 </script>
 
 <div class="border rounded-md my-6 mx-2 p-6">
-  <h4 class="text-2xl mb-2">{poll.title}</h4>
+  <h4 class="text-xl mb-2">{poll.title}</h4>
   <div class="">
     {#if showVotes}
       {#each poll.options as option}
@@ -21,10 +37,6 @@
           </div>
         </div>
       {/each}
-      <a href={`/polls/${poll.id}`}>
-        {poll.totalVotes} {poll.totalVotes === 1 ? "Vote" : "Votes"},
-        {poll.numComments} {poll.numComments === 1 ? "Comment" : "Comments"}
-      </a>
     {:else}
       <form on:submit|preventDefault={submitVote}>
         {#each poll.options as option}
@@ -34,5 +46,9 @@
         {/each}
       </form>
     {/if}
+    <a href={`/polls/${poll.id}`}>
+      {poll.totalVotes} {poll.totalVotes === 1 ? "Vote" : "Votes"},
+      {poll.numComments} {poll.numComments === 1 ? "Comment" : "Comments"}
+    </a>
   </div>
 </div>

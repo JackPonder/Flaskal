@@ -1,4 +1,7 @@
 <script lang="ts">
+  import { Api } from "$lib/api";
+  import { user, alerts } from "$lib/stores";
+
   let numOptions = 2;
 
   const addOption = () => numOptions = Math.min(numOptions + 1, 6);
@@ -14,7 +17,21 @@
   let title: string, tag: string;
   let options: string[] = [];
   
-  const submitPoll = (event: Event) => {}
+  const submitPoll = async (event: SubmitEvent) => {
+    if ($user === null) {
+      alerts.set({message: "You must be logged in to create a poll.", type: "danger"});
+      return;
+    }
+
+    const response = await Api.post("/polls", {title, tag, options});
+    if (response.ok) {
+      alerts.set({message: "Successfully created poll.", type: "info"});
+      const form = event.target as HTMLFormElement;
+      form.reset();
+    } else {
+      alerts.set({message: "Something went wrong.", type: "danger"});
+    }
+  }
 </script>
 
 <form class="border rounded-md my-6 mx-2 p-6" on:submit|preventDefault={submitPoll}>

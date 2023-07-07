@@ -24,13 +24,13 @@ body {
 }
 
 .btn-blue {
-  @apply text-center text-white rounded-md py-1.5 bg-blue-600
-    hover:bg-blue-700 duration-200
+  @apply text-center text-white rounded-md py-1.5 bg-blue-500
+    hover:bg-blue-600 duration-200
 }
 
 .btn-white {
   @apply text-center text-gray-500 border border-gray-500 rounded-md py-1.5 
-  hover:text-white hover:bg-gray-500 duration-200
+    hover:text-white hover:bg-gray-500 duration-200
 }
 
 .form-input {
