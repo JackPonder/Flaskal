@@ -1,5 +1,10 @@
 <script lang="ts">
   import { modals, user } from "$lib/stores";
+
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    user.set(null);
+  }
 </script>
 
 <nav class="bg-black py-3 px-4 flex justify-between sticky top-0">
@@ -7,7 +12,7 @@
     Flaskal
   </a>
   {#if $user}
-    <button class="text-white" on:click={() => user.set(null)}>
+    <button class="text-white" on:click={logout}>
       Log Out
     </button>
   {:else}

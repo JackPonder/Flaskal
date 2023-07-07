@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Api } from "$lib/api";
+  import { api } from "$lib/api";
   import { user, alerts } from "$lib/stores";
   import type { PollSchema, CommentSchema } from "$lib/schemas";
 
@@ -13,10 +13,10 @@
       return;
     }
 
-    const response = await Api.post(`/polls/${data.poll.id}/comments`, {content});
+    const response = await api.post(`/polls/${data.poll.id}/comments`, {content});
     if (response.ok) {
       data.comments = [...data.comments, response.body];
-      const form = event.target as HTMLFormElement;
+      const form = <HTMLFormElement> event.target;
       form.reset();
     } else {
       alerts.set({message: "Something went wrong.", type: "danger"});

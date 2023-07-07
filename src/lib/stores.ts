@@ -1,8 +1,22 @@
-import { writable } from "svelte/store";
-import type { Writable } from "svelte/store";
 import type { UserSchema } from "./schemas";
+import { writable } from "svelte/store";
+import { browser } from "$app/environment";
+import { api } from "./api";
 
-export const user: Writable<UserSchema | null> = writable(null);
+const userStore = async () => {
+    const { subscribe, set } = writable<UserSchema | null>(null);
+
+    if (browser) {
+        const res = await api.get("/users/self");
+        if (res.ok) {
+            set(res.body);
+        }    
+    }
+
+    return { subscribe, set };
+}
+
+export const user = await userStore();
 
 export const alerts = writable({message: "", type: ""});
 

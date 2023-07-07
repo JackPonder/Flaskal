@@ -1,24 +1,29 @@
+import { browser } from "$app/environment";
+
 interface RequestOptions {
-    url: string;
-    method: string;
+    url?: string;
+    method?: string;
+    authorization?: string;
     body?: object;
 }
 
-export class Api {
-    static BASE_URL = "http://127.0.0.1:5000";
+export const api = {
+    BASE_URL: "http://127.0.0.1:5000",
 
-    static async request(options: RequestOptions) {
+    request: async (options: RequestOptions) => {
         let response: Response;
         try {
-            response = await fetch(Api.BASE_URL + options.url, {
+            response = await fetch(api.BASE_URL + options.url, {
                 method: options.method,
                 headers: {
-                    "content-type": "application/json"
+                    "content-type": "application/json",
+                    "authorization": options.authorization || 
+                        `Bearer ${browser ? localStorage.getItem("accessToken") : ""}`,
                 },
                 body: JSON.stringify(options.body)
             });
         } catch (e: any) {
-            let error = e.message;
+            const error = e.message;
             return {
                 ok: false,
                 status: 500,
@@ -32,25 +37,25 @@ export class Api {
             status: response.status,
             body: json,
         }
-    }
+    },
     
-    static async get(url: string) {
-        return Api.request({url, method: "GET"});
-    }
+    get: async (url: string, options?: RequestOptions) => {
+        return api.request({url, method: "GET", ...options});
+    },
     
-    static async post(url: string, body: object) {
-        return Api.request({url, method: "POST", body});
-    }
+    post: async (url: string, body?: object, options?: RequestOptions) => {
+        return api.request({url, method: "POST", body, ...options});
+    },
 
-    static async put(url: string, body: object) {
-        return Api.request({url, method: "PUT", body});
-    }
+    put: async (url: string, body?: object, options?: RequestOptions) => {
+        return api.request({url, method: "PUT", body, ...options});
+    },
     
-    static async patch(url: string, body: object) {
-        return Api.request({url, method: "PATCH", body});
-    }
+    patch: async (url: string, body?: object, options?: RequestOptions) => {
+        return api.request({url, method: "PATCH", body, ...options});
+    },
     
-    async delete(url: string) {
-        return Api.request({url, method: "DELETE"});
-    }
+    delete: async (url: string, options?: RequestOptions) => {
+        return api.request({url, method: "DELETE", ...options});
+    },
 }

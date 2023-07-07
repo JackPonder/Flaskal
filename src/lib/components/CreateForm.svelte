@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Api } from "$lib/api";
+  import { api } from "$lib/api";
   import { user, alerts } from "$lib/stores";
 
   let numOptions = 2;
@@ -23,10 +23,10 @@
       return;
     }
 
-    const response = await Api.post("/polls", {title, tag, options});
+    const response = await api.post("/polls", {title, tag, options});
     if (response.ok) {
       alerts.set({message: "Successfully created poll.", type: "info"});
-      const form = event.target as HTMLFormElement;
+      const form = <HTMLFormElement> event.target;
       form.reset();
     } else {
       alerts.set({message: "Something went wrong.", type: "danger"});

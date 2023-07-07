@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 .btn-close {
   box-sizing: content-box;
   width: 1em;
@@ -28,9 +19,19 @@ body {
     hover:bg-blue-600 duration-200
 }
 
+.btn-blue-lg {
+  @apply text-clip text-white text-xl rounded-md py-2.5
+    bg-blue-500 hover:bg-blue-600 duration-200
+}
+
 .btn-white {
   @apply text-center text-gray-500 border border-gray-500 rounded-md py-1.5 
     hover:text-white hover:bg-gray-500 duration-200
+}
+
+.btn-white-lg {
+  @apply text-center text-gray-500 text-xl border border-gray-500 rounded-md py-2.5 
+  hover:text-white hover:bg-gray-500 duration-200
 }
 
 .form-input {
