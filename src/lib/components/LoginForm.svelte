@@ -9,15 +9,17 @@
       authorization: `Basic ${btoa(`${username}:${password}`)}`
     });
 
-    if (response.ok) {
-      localStorage.setItem("accessToken", response.body.token);
-      user.set((await api.get("/users/self")).body);
-      alerts.set({message: `Logged in as ${username}`, type: "info"});
-      modals.set(0);
-      
-      const form = <HTMLFormElement> event.target;
-      form.reset();
+    if (!response.ok) {
+      return;
     }
+
+    localStorage.setItem("accessToken", response.body.token);
+    user.set((await api.get("/users/self")).body);
+    alerts.set(`Logged in as ${username}`, "info");
+    modals.set(0);
+    
+    const form = <HTMLFormElement> event.target;
+    form.reset();
   }
 </script>
 

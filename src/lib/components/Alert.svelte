@@ -1,7 +1,5 @@
 <script lang="ts">
   import { alerts } from "$lib/stores";
-  
-  const clearAlert = () => alerts.set({message: "", type: ""});
 </script>
 
 <style lang="postcss">
@@ -19,7 +17,7 @@
       {$alerts.message}
     </div>
     <div class="text-end">
-      <button type="button" class="btn-close" on:click={clearAlert}></button>
+      <button type="button" class="btn-close" on:click={alerts.clear}></button>
     </div>
   </div>
 {/if}

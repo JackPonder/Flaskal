@@ -9,18 +9,19 @@
 
   const submitComment = async (event: SubmitEvent) => {
     if ($user === null) {
-      alerts.set({message: "You must be logged in to comment.", type: "danger"});
+      alerts.set("You must be logged in to comment.", "danger");
       return;
     }
 
     const response = await api.post(`/polls/${data.poll.id}/comments`, {content});
-    if (response.ok) {
-      data.comments = [...data.comments, response.body];
-      const form = <HTMLFormElement> event.target;
-      form.reset();
-    } else {
-      alerts.set({message: "Something went wrong.", type: "danger"});
+    if (!response.ok) {
+      alerts.set("Something went wrong.", "danger");
+      return;
     }
+
+    data.comments = [...data.comments, response.body];
+    const form = <HTMLFormElement> event.target;
+    form.reset();
   }
 </script>
 

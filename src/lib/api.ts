@@ -18,7 +18,7 @@ export const api = {
                 headers: {
                     "content-type": "application/json",
                     "authorization": options.authorization || 
-                        `Bearer ${browser ? localStorage.getItem("accessToken") : ""}`,
+                        `Bearer ${browser ? localStorage.getItem("accessToken") || "" : ""}`,
                 },
                 body: JSON.stringify(options.body)
             });

@@ -10,16 +10,17 @@
 
   const submitVote = async () => {
     if ($user === null) {
-      alerts.set({message: "You must be logged in to vote.", type: "danger"});
+      alerts.set("You must be logged in to vote.", "danger");
       return;
     }
 
     const response = await api.patch(`/polls/${poll.id}/vote`, {vote});
-    if (response.ok) {
-      poll = response.body;
-    } else {
-      alerts.set({message: "Something went wrong.", type: "danger"});
+    if (!response.ok) {
+      alerts.set("Something went wrong.", "danger");
+      return;
     }
+    
+    poll = response.body;
   }
 </script>
 

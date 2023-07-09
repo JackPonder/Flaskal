@@ -7,21 +7,25 @@
   const register = async (event: SubmitEvent) => {
     const response = await api.post("/users", {username, password});
 
-    if (response.ok) {
-      const login = await api.post("/tokens", undefined, {
-        authorization: `Basic ${btoa(`${username}:${password}`)}`
-      });
-
-      if (login.ok) {
-        localStorage.setItem("accessToken", login.body.token);
-        user.set((await api.get("/users/self")).body);
-        alerts.set({message: `Logged in as ${username}`, type: "info"});
-        modals.set(0);
-        
-        const form = <HTMLFormElement> event.target;
-        form.reset();
-      }
+    if (!response.ok) {
+      return;
     }
+
+    const login = await api.post("/tokens", undefined, {
+      authorization: `Basic ${btoa(`${username}:${password}`)}`
+    });
+
+    if (!login.ok) {
+      return;
+    }
+
+    localStorage.setItem("accessToken", login.body.token);
+    user.set((await api.get("/users/self")).body);
+    alerts.set(`Logged in as ${username}`, "info");
+    modals.set(0);
+    
+    const form = <HTMLFormElement> event.target;
+    form.reset();
   }
 </script>
 

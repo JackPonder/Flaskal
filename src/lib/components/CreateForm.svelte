@@ -19,18 +19,19 @@
   
   const submitPoll = async (event: SubmitEvent) => {
     if ($user === null) {
-      alerts.set({message: "You must be logged in to create a poll.", type: "danger"});
+      alerts.set("You must be logged in to create a poll.", "danger");
       return;
     }
 
     const response = await api.post("/polls", {title, tag, options});
-    if (response.ok) {
-      alerts.set({message: "Successfully created poll.", type: "info"});
-      const form = <HTMLFormElement> event.target;
-      form.reset();
-    } else {
-      alerts.set({message: "Something went wrong.", type: "danger"});
+    if (!response.ok) {
+      alerts.set("Something went wrong.", "danger");
+      return;
     }
+  
+    alerts.set("Successfully created poll.", "info");
+    const form = <HTMLFormElement> event.target;
+    form.reset();
   }
 </script>
 
