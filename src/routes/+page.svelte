@@ -19,6 +19,6 @@
     {/each}
   </div>
   <div class="md:col-span-4">
-    <SideContent linkCreate />
+    <SideContent hasCreateButton />
   </div>
 </div>

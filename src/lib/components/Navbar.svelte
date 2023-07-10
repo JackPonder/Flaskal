@@ -13,7 +13,7 @@
   </a>
   {#if $user}
     <button class="text-white" on:click={logout}>
-      Log Out
+      {$user.username}
     </button>
   {:else}
     <button class="text-white" on:click={() => modals.set(1)}>

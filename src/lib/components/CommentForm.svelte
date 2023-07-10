@@ -25,7 +25,7 @@
   }
 </script>
 
-<form class="border rounded-md my-4 mx-2 p-4" on:submit|preventDefault={submitComment}>
+<form class="card p-4" on:submit|preventDefault={submitComment}>
   <label for="comment" class="block mb-2">Add a comment</label>
   <div class="w-full flex justify-between">
     <textarea class="border rounded-l-md py-1.5 px-2 flex-grow" id="comment" 

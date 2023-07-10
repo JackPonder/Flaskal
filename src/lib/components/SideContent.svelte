@@ -1,8 +1,8 @@
 <script>
-  export let linkCreate = false;
+  export let hasCreateButton = false;
 </script>
 
-<div class="border rounded-md my-6 mx-2 md:block hidden sticky" style="top: 75px;">
+<div class="card md:block hidden sticky top-[75px]">
   <div class="bg-gray-50 border-b rounded-t-md px-4 py-2">
     About Flaskal
   </div>
@@ -13,7 +13,7 @@
       Ask anything from simple questions about your favorite 
       foods to deep philosophical inquiries about the meaning of life.
     </p>
-    {#if linkCreate}
+    {#if hasCreateButton}
       <hr class="my-4">
       <a href="/create" class="btn-blue block">Create a Poll</a>      
     {/if}

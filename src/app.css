@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.card {
+  @apply border rounded-md my-6 mx-2
+}
+
 .btn-close {
   box-sizing: content-box;
   width: 1em;
@@ -31,7 +35,7 @@
 
 .btn-white-lg {
   @apply text-center text-gray-500 text-xl border border-gray-500 rounded-md py-2.5 
-  hover:text-white hover:bg-gray-500 duration-200
+    hover:text-white hover:bg-gray-500 duration-200
 }
 
 .form-input {

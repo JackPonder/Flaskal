@@ -15,5 +15,6 @@ export async function load({ params }) {
 
     const poll: PollSchema = pollRes.body;
     const comments: CommentSchema[] = commentsRes.body;
-    return {poll, comments};
+    
+    return { poll, comments };
 }

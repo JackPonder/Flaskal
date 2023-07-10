@@ -2,6 +2,7 @@
   import type { PollSchema } from "$lib/schemas";
   import { api } from "$lib/api";
   import { user, alerts } from "$lib/stores";
+    import { formatRelativeDate } from "$lib/utils";
 
   export let poll: PollSchema;
   $: showVotes = $user ? poll.voters.includes($user.username) : true;
@@ -24,8 +25,20 @@
   }
 </script>
 
-<div class="border rounded-md my-6 mx-2 p-6">
-  <h4 class="text-xl mb-2">{poll.title}</h4>
+<div class="card p-6">
+  <small>
+    Posted by 
+    <a href={`/users/${poll.creator}`} class="hover:underline">{poll.creator}</a> 
+    {formatRelativeDate(new Date(poll.timestamp))}
+  </small>
+  <div class="flex justify-between mb-2">
+    <h4 class="text-xl">{poll.title}</h4>  
+    {#if poll.tag}
+      <span class="flex items-center bg-gray-500 border text-white rounded-md px-2">
+        {poll.tag}
+      </span>
+    {/if}  
+  </div>
   {#if showVotes}
     {#each poll.options as option}
       <div class="mb-2">

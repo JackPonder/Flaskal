@@ -32,8 +32,7 @@
 <div id="registerModal" tabindex="-1" role="dialog"
   class="fixed top-0 z-50 w-full h-full overflow-x-hidden overflow-y-auto {$modals === 2 ? "flex" : "hidden"}">
   <div class="flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-    <form class="relative bg-white rounded-lg mx-4 p-8 flex-grow" 
-      style="max-width: 425px;"  on:submit|preventDefault={register}>
+    <form class="relative bg-white rounded-lg mx-4 p-8 flex-grow max-w-[425px]" on:submit|preventDefault={register}>
       <div class="grid grid-cols-8 pt-2 pb-4">
         <h1 class="col-span-6 col-start-2 text-4xl text-center font-semibold">
           Register

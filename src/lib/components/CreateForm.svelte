@@ -35,7 +35,7 @@
   }
 </script>
 
-<form class="border rounded-md my-6 mx-2 p-6" on:submit|preventDefault={submitPoll}>
+<form class="card p-6" on:submit|preventDefault={submitPoll}>
   <h2 class="text-xl mb-2">
     Create a Poll
   </h2>
