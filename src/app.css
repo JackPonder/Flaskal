@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .card {
-  @apply border rounded-md my-6 mx-2
+  @apply border rounded-md my-4 mx-2
 }
 
 .btn-close {
@@ -18,24 +18,24 @@
   opacity: .5;
 }
 
+.btn {
+  @apply text-center rounded-md duration-200
+}
+
 .btn-blue {
-  @apply text-center text-white rounded-md py-1.5 bg-blue-500
-    hover:bg-blue-600 duration-200
+  @apply btn text-white py-1.5 bg-blue-500 hover:bg-blue-600
 }
 
 .btn-blue-lg {
-  @apply text-clip text-white text-xl rounded-md py-2.5
-    bg-blue-500 hover:bg-blue-600 duration-200
+  @apply btn text-white text-xl py-2.5 bg-blue-500 hover:bg-blue-600
 }
 
 .btn-white {
-  @apply text-center text-gray-500 border border-gray-500 rounded-md py-1.5 
-    hover:text-white hover:bg-gray-500 duration-200
+  @apply btn text-gray-500 border border-gray-500 py-1.5 hover:text-white hover:bg-gray-500
 }
 
 .btn-white-lg {
-  @apply text-center text-gray-500 text-xl border border-gray-500 rounded-md py-2.5 
-    hover:text-white hover:bg-gray-500 duration-200
+  @apply btn text-gray-500 text-xl border border-gray-500 py-2.5 hover:text-white hover:bg-gray-500
 }
 
 .form-input {

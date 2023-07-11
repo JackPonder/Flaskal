@@ -2,7 +2,7 @@
   export let hasCreateButton = false;
 </script>
 
-<div class="card md:block hidden sticky top-[75px]">
+<div class="card md:block hidden sticky top-[70px]">
   <div class="bg-gray-50 border-b rounded-t-md px-4 py-2">
     About Flaskal
   </div>

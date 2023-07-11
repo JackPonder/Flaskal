@@ -1,6 +1,11 @@
 <script lang="ts">
   import { Poll, Comment } from "$lib/components";
-  import img from "$lib/assets/flask.png";
+  import { user } from "$lib/stores.js";
+
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    user.set(null);
+  }
 
   export let data;
 
@@ -20,10 +25,13 @@
 
 <div class="grid md:grid-cols-12 mx-auto max-w-lg md:max-w-6xl">
   <div class="md:col-span-4 md:col-start-2">
-    <div class="card p-4 sticky top-[75px] flex flex-col items-center">
-      <img src={img} alt="" height=50% class="my-6">
+    <div class="card p-4 sticky top-[70px] flex flex-col items-center">
+      <img src="/icons/user.svg" alt="" class="h-40 my-6">
       <h2 class="text-2xl font-semibold">{data.user.username}</h2>
       <h4 class="text-lgxl mb-3">Joined {new Date(data.user.dateJoined).toDateString()}</h4>
+      {#if $user?.username === data.user.username}
+        <button class="btn-blue w-full" on:click={logout}>Logout</button>        
+      {/if}
     </div>
   </div>
   <div class="md:col-span-6">

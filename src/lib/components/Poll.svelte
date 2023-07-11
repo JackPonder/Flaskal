@@ -2,10 +2,9 @@
   import type { PollSchema } from "$lib/schemas";
   import { api } from "$lib/api";
   import { user, alerts } from "$lib/stores";
-    import { formatRelativeDate } from "$lib/utils";
+  import { formatRelativeDate } from "$lib/utils";
 
   export let poll: PollSchema;
-  $: showVotes = $user ? poll.voters.includes($user.username) : true;
 
   let vote: number;
 
@@ -34,12 +33,12 @@
   <div class="flex justify-between mb-2">
     <h4 class="text-xl">{poll.title}</h4>  
     {#if poll.tag}
-      <span class="flex items-center bg-gray-500 border text-white rounded-md px-2">
+      <span class="flex items-center bg-gray-500 text-white rounded-md px-2">
         {poll.tag}
       </span>
     {/if}  
   </div>
-  {#if showVotes}
+  {#if $user ? poll.voters.includes($user.username) : true}
     {#each poll.options as option}
       <div class="mb-2">
         <div>{option.name}</div>
@@ -59,8 +58,14 @@
       {/each}
     </form>
   {/if}
-  <a href={`/polls/${poll.id}`}>
-    {poll.totalVotes} {poll.totalVotes === 1 ? "Vote" : "Votes"},
-    {poll.numComments} {poll.numComments === 1 ? "Comment" : "Comments"}
-  </a>
+  <div class="flex">
+    <div class="flex items-center">
+      <img src="/icons/graph.svg" alt="" class="h-5 mx-2" />
+      {poll.totalVotes} {poll.totalVotes === 1 ? "Vote" : "Votes"}      
+    </div>
+    <a class="flex items-center" href={`/polls/${poll.id}`}>
+      <img src="/icons/comment.svg" alt="" class="h-5 mx-2" />
+      {poll.numComments} {poll.numComments === 1 ? "Comment" : "Comments"}      
+    </a>
+  </div>
 </div>

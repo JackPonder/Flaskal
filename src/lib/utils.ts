@@ -15,9 +15,9 @@ export const formatRelativeDate = (date: Date): string => {
 
     for (const [unit, msPerUnit] of Object.entries(timeUnits)) {
         if (Math.abs(difference) >= msPerUnit) {
-            return formatter.format(Math.round(difference / msPerUnit), unit as Intl.RelativeTimeFormatUnit);
+            return formatter.format(Math.trunc(difference / msPerUnit), unit as Intl.RelativeTimeFormatUnit);
         }
     }
 
-    return "Just now";
+    return formatter.format(0, "second");
 }
