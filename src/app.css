@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .card {
-  @apply border rounded-md my-4 mx-2
+  @apply border rounded-md my-4 mx-2 bg-white
 }
 
 .btn-close {

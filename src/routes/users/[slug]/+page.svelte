@@ -2,12 +2,12 @@
   import { Poll, Comment } from "$lib/components";
   import { user } from "$lib/stores.js";
 
+  export let data;
+
   const logout = () => {
     localStorage.removeItem("accessToken");
     user.set(null);
   }
-
-  export let data;
 
   enum DisplayOptions { 
     Polls = "Polls", 
@@ -24,7 +24,7 @@
 </style>
 
 <div class="grid md:grid-cols-12 mx-auto max-w-lg md:max-w-6xl">
-  <div class="md:col-span-4 md:col-start-2">
+  <div class="md:col-span-4 md:col-start-2 -mb-4">
     <div class="card p-4 sticky top-[70px] flex flex-col items-center">
       <img src="/icons/user.svg" alt="" class="h-40 my-6">
       <h2 class="text-2xl font-semibold">{data.user.username}</h2>
@@ -35,31 +35,29 @@
     </div>
   </div>
   <div class="md:col-span-6">
-    <ul class="card p-4 grid grid-cols-2">
+    <div class="card p-4 grid grid-cols-2">
       {#each Object.values(DisplayOptions) as option}
         <button class="text-center rounded-md py-1.5 duration-200" 
             class:active={display === option} on:click={() => display = option}>
           {option}
         </button>
       {/each}
-    </ul>
+    </div>
     {#if display === DisplayOptions.Polls}
-      {#if data.polls.length === 0}
-        <div class="card p-4 text-center">
-          Looks like {data.user.username} hasn't created any polls.
-        </div>
-      {/if}
       {#each data.polls as poll}
         <Poll {poll} />
+      {:else}
+        <div class="card p-4 text-center">
+          Looks like {data.user.username} hasn't created any polls.
+        </div>      
       {/each}
     {:else if display === DisplayOptions.Comments}
-      {#if data.comments.length === 0}
+      {#each data.comments as comment}
+        <Comment {comment} link="Poll" />
+      {:else}
         <div class="card p-4 text-center">
           Looks like {data.user.username} hasn't created any comments.
         </div>
-      {/if}
-      {#each data.comments as comment}
-        <Comment {comment} link="Poll" />
       {/each}    
     {/if}
   </div>
