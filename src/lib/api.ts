@@ -1,19 +1,23 @@
+import type { HttpMethod } from "@sveltejs/kit";
 import { browser } from "$app/environment";
 
-interface RequestOptions {
-    url?: string;
-    method?: string;
+type RequestOptions = {
+    method?: HttpMethod;
+    path?: string;
+    query?: Record<string, string>;
     authorization?: string;
     body?: object;
-}
+};
 
 export const api = {
     BASE_URL: "http://127.0.0.1:5000",
 
     request: async (options: RequestOptions) => {
+        const queryParams = options.query ? "?" + new URLSearchParams(options.query).toString() : "";
         let response: Response;
+
         try {
-            response = await fetch(api.BASE_URL + options.url, {
+            response = await fetch(api.BASE_URL + options.path + queryParams, {
                 method: options.method,
                 headers: {
                     "content-type": "application/json",
@@ -23,12 +27,11 @@ export const api = {
                 body: JSON.stringify(options.body)
             });
         } catch (e: any) {
-            const error = e.message;
             return {
                 ok: false,
                 status: 500,
-                body: {error}
-            }   
+                body: { error: e.message },
+            };
         }
     
         const json = await response.json();
@@ -36,26 +39,26 @@ export const api = {
             ok: response.ok,
             status: response.status,
             body: json,
-        }
+        };
     },
     
-    get: async (url: string, options?: RequestOptions) => {
-        return api.request({url, method: "GET", ...options});
+    get: async (path: string, options?: RequestOptions) => {
+        return api.request({ method: "GET", path, ...options });
     },
     
-    post: async (url: string, body?: object, options?: RequestOptions) => {
-        return api.request({url, method: "POST", body, ...options});
+    post: async (path: string, body?: object, options?: RequestOptions) => {
+        return api.request({ method: "POST", path, body, ...options });
     },
 
-    put: async (url: string, body?: object, options?: RequestOptions) => {
-        return api.request({url, method: "PUT", body, ...options});
+    put: async (path: string, body?: object, options?: RequestOptions) => {
+        return api.request({ method: "PUT", path, body, ...options });
     },
     
-    patch: async (url: string, body?: object, options?: RequestOptions) => {
-        return api.request({url, method: "PATCH", body, ...options});
+    patch: async (path: string, body?: object, options?: RequestOptions) => {
+        return api.request({ method: "PATCH", path, body, ...options });
     },
     
-    delete: async (url: string, options?: RequestOptions) => {
-        return api.request({url, method: "DELETE", ...options});
+    delete: async (path: string, options?: RequestOptions) => {
+        return api.request({ method: "DELETE", path, ...options });
     },
 }

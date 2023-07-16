@@ -1,7 +1,21 @@
 <script lang="ts">
   import { Poll, SideContent } from '$lib/components';
   import { page } from '$app/stores';
+
   export let data;
+
+  let sortByLinks = { 
+    new: "/?sort=new", 
+    top: "/?sort=top",
+  };
+
+  $: {
+    const params = new URLSearchParams($page.url.searchParams);
+    Object.keys(sortByLinks).forEach(key => {
+      params.set("sort", key);
+      sortByLinks[key as keyof typeof sortByLinks] = "/?" + params.toString();
+    });
+  }
 </script>
 
 <style lang="postcss">
@@ -18,12 +32,12 @@
       </a>
     </div>
     <div class="card p-4 grid grid-cols-2">
-      <a class="text-center rounded-md py-1" 
-        class:active={!$page.url.searchParams.get("sort")} href="/">
+      <a href={sortByLinks.new} class="text-center rounded-md py-1" 
+        class:active={["new", null].includes($page.url.searchParams.get("sort"))}>
         New
       </a>
-      <a class="text-center rounded-md py-1" 
-        class:active={$page.url.searchParams.get("sort") === "top"} href="/?sort=top">
+      <a href={sortByLinks.top} class="text-center rounded-md py-1" 
+        class:active={$page.url.searchParams.get("sort") === "top"}>
         Top
       </a>
     </div>

@@ -3,8 +3,17 @@
   import { api } from "$lib/api";
   import { user, alerts } from "$lib/stores";
   import { formatRelativeDate } from "$lib/utils";
+  import { page } from "$app/stores";
 
   export let poll: PollSchema;
+
+  let filterByTagLink = `/?tag=${poll.tag || ""}`;
+  
+  $: if ($page.url.pathname === "/") {
+    const params = new URLSearchParams($page.url.searchParams);
+    params.set("tag", poll.tag || "");
+    filterByTagLink = "/?" + params.toString();
+  }
 
   let vote: number;
 
@@ -31,11 +40,11 @@
     {formatRelativeDate(new Date(poll.timestamp))}
   </small>
   <div class="flex justify-between mb-2">
-    <h4 class="text-xl">{poll.title}</h4>  
+    <h4 class="text-xl">{poll.title}</h4>
     {#if poll.tag}
-      <span class="flex items-center bg-gray-500 text-white rounded-md px-2">
+      <a href={filterByTagLink} class="flex items-center bg-gray-500 text-white rounded-md px-2">
         {poll.tag}
-      </span>
+      </a>
     {/if}  
   </div>
   {#if $user ? poll.voters.includes($user.username) : true}
