@@ -45,7 +45,7 @@
     </div>
     {#if display === DisplayOptions.Polls}
       {#each data.polls as poll}
-        <Poll {poll} />
+        <Poll {poll} deletable={poll.creator === $user?.username} />
       {:else}
         <div class="card p-4 text-center">
           Looks like {data.user.username} hasn't created any polls.
@@ -53,7 +53,7 @@
       {/each}
     {:else if display === DisplayOptions.Comments}
       {#each data.comments as comment}
-        <Comment {comment} link="Poll" />
+        <Comment {comment} link="Poll" deletable={comment.creator === $user?.username} />
       {:else}
         <div class="card p-4 text-center">
           Looks like {data.user.username} hasn't created any comments.

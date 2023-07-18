@@ -1,9 +1,9 @@
-export interface UserSchema {
+export type UserSchema = {
     username: string;
     dateJoined: string;
 }
 
-export interface PollSchema {
+export type PollSchema = {
     id: number;
     title: string,
     creator: string;
@@ -15,7 +15,7 @@ export interface PollSchema {
     timestamp: string;
 }
 
-interface PollOptionSchema {
+type PollOptionSchema = {
     id: number;
     name: string;
     votes: number;
@@ -23,11 +23,13 @@ interface PollOptionSchema {
     voters: string[];
 }
 
-export interface CommentSchema {
+export type CommentSchema = {
     id: number;
     creator: string;
-    pollTitle: string;
-    pollId: number;
+    poll: { 
+        title: string; 
+        id: number; 
+    };
     content: string;
     timestamp: string;
 }

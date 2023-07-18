@@ -34,7 +34,7 @@ export const api = {
             };
         }
     
-        const json = await response.json();
+        const json = response.status !== 204 ? await response.json() : null;
         return {
             ok: response.ok,
             status: response.status,
