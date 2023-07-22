@@ -30,8 +30,8 @@
       </a>
     {:else if link === "Poll"}
       On&nbsp;
-      <a class="font-semibold hover:underline" href={`/polls/${comment.poll.id}`}>
-        {comment.poll.title}
+      <a class="font-semibold hover:underline" href={`/polls/${comment.pollId}`}>
+        {comment.pollTitle}
       </a>        
     {/if}
     <small>

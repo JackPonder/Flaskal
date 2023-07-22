@@ -5,10 +5,10 @@ export type UserSchema = {
 
 export type PollSchema = {
     id: number;
-    title: string,
+    title: string;
     creator: string;
-    options: PollOptionSchema[]
-    tag: string | null,
+    options: PollOptionSchema[];
+    tag: string | null;
     totalVotes: number;
     voters: string[];
     numComments: number;
@@ -26,10 +26,8 @@ type PollOptionSchema = {
 export type CommentSchema = {
     id: number;
     creator: string;
-    poll: { 
-        title: string; 
-        id: number; 
-    };
+    pollId: number;
+    pollTitle: string;
     content: string;
     timestamp: string;
 }
