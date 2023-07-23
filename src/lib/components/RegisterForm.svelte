@@ -2,10 +2,11 @@
   import { api } from "$lib/api";
   import { user, modals, alerts } from "$lib/stores";
 
+  let formRef: HTMLFormElement;
   let username: string, password: string;
 
-  const register = async (event: SubmitEvent) => {
-    const response = await api.post("/users", {username, password});
+  const register = async () => {
+    const response = await api.post("/users", { username, password });
 
     if (!response.ok) {
       return;
@@ -20,19 +21,18 @@
     }
 
     localStorage.setItem("accessToken", login.body.token);
-    user.set((await api.get("/users/self")).body);
+    user.set(response.body);
     alerts.set(`Logged in as ${username}`, "info");
     modals.set(0);
-    
-    const form = <HTMLFormElement> event.target;
-    form.reset();
+    formRef.reset();
   }
 </script>
 
 <div id="registerModal" tabindex="-1" role="dialog"
   class="fixed top-0 z-50 w-full h-full overflow-x-hidden overflow-y-auto {$modals === 2 ? "flex" : "hidden"}">
   <div class="flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-    <form class="relative bg-white rounded-lg mx-4 p-8 flex-grow max-w-[425px]" on:submit|preventDefault={register}>
+    <form class="relative bg-white rounded-lg mx-4 p-8 flex-grow max-w-[425px]" 
+      on:submit|preventDefault={register} bind:this={formRef}>
       <div class="grid grid-cols-8 pt-2 pb-4">
         <h1 class="col-span-6 col-start-2 text-4xl text-center font-semibold">
           Register

@@ -11,6 +11,5 @@ export async function load({ url }) {
         throw error(res.status);
     }
 
-    const polls: PollSchema[] = res.body;
-    return { polls };
+    return { polls: res.body as PollSchema[] };
 }

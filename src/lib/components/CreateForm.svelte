@@ -14,10 +14,11 @@
     "Sports", "Art", "Technology", "Food",
   ];
 
+  let formRef: HTMLFormElement;
   let title: string, tag: string;
   let options: string[] = [];
   
-  const submitPoll = async (event: SubmitEvent) => {
+  const submitPoll = async () => {
     if ($user === null) {
       alerts.set("You must be logged in to create a poll.", "danger");
       return;
@@ -30,12 +31,11 @@
     }
   
     alerts.set("Successfully created poll.", "info");
-    const form = <HTMLFormElement> event.target;
-    form.reset();
+    formRef.reset();
   }
 </script>
 
-<form class="card p-6" on:submit|preventDefault={submitPoll}>
+<form class="card p-6" on:submit|preventDefault={submitPoll} bind:this={formRef}>
   <h2 class="text-xl mb-2">
     Create a Poll
   </h2>

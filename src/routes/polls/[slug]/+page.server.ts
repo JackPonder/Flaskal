@@ -12,9 +12,9 @@ export async function load({ params }) {
     if (!commentsRes.ok) {
         throw error(commentsRes.status);
     }
-
-    const poll: PollSchema = pollRes.body;
-    const comments: CommentSchema[] = commentsRes.body;
     
-    return { poll, comments };
+    return { 
+        poll: pollRes.body as PollSchema, 
+        comments: commentsRes.body as CommentSchema[],
+    };
 }

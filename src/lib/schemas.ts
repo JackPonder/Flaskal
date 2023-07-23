@@ -1,7 +1,7 @@
 export type UserSchema = {
     username: string;
     dateJoined: string;
-}
+};
 
 export type PollSchema = {
     id: number;
@@ -13,7 +13,7 @@ export type PollSchema = {
     voters: string[];
     numComments: number;
     timestamp: string;
-}
+};
 
 type PollOptionSchema = {
     id: number;
@@ -21,7 +21,7 @@ type PollOptionSchema = {
     votes: number;
     percentage: number;
     voters: string[];
-}
+};
 
 export type CommentSchema = {
     id: number;
@@ -30,4 +30,4 @@ export type CommentSchema = {
     pollTitle: string;
     content: string;
     timestamp: string;
-}
+};

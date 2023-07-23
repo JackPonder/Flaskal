@@ -18,9 +18,9 @@ export async function load({ params }) {
         throw error(commentsRes.status);
     }
 
-    const user: UserSchema = userRes.body;
-    const polls: PollSchema[] = pollsRes.body;
-    const comments: CommentSchema[] = commentsRes.body;
-
-    return { user, polls, comments };
+    return { 
+        user: userRes.body as UserSchema, 
+        polls: pollsRes.body as PollSchema[], 
+        comments: commentsRes.body as CommentSchema[], 
+    };
 }

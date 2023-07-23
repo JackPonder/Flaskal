@@ -6,9 +6,10 @@
   export let poll: PollSchema
   export let comments: CommentSchema[];
 
+  let formRef: HTMLFormElement;
   let content: string;
 
-  const submitComment = async (event: SubmitEvent) => {
+  const submitComment = async () => {
     if ($user === null) {
       alerts.set("You must be logged in to comment.", "danger");
       return;
@@ -21,12 +22,11 @@
     }
 
     comments = [...comments, response.body];
-    const form = <HTMLFormElement> event.target;
-    form.reset();
+    formRef.reset();
   }
 </script>
 
-<form class="card p-4" on:submit|preventDefault={submitComment}>
+<form class="card p-4" on:submit|preventDefault={submitComment} bind:this={formRef}>
   <label for="comment" class="block mb-2">Add a comment</label>
   <div class="w-full flex justify-between">
     <textarea class="border rounded-l-md py-1.5 px-2 flex-grow" id="comment" required
