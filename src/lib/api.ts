@@ -1,5 +1,6 @@
 import type { HttpMethod } from "@sveltejs/kit";
 import { browser } from "$app/environment";
+import { PUBLIC_API_BASE_URL } from "$env/static/public";
 
 type RequestOptions = {
     method?: HttpMethod;
@@ -10,14 +11,12 @@ type RequestOptions = {
 };
 
 export const api = {
-    BASE_URL: "http://127.0.0.1:5000",
-
     request: async (options: RequestOptions) => {
         const queryParams = options.query ? "?" + new URLSearchParams(options.query).toString() : "";
         let response: Response;
 
         try {
-            response = await fetch(api.BASE_URL + options.path + queryParams, {
+            response = await fetch(PUBLIC_API_BASE_URL + options.path + queryParams, {
                 method: options.method,
                 headers: {
                     "content-type": "application/json",
