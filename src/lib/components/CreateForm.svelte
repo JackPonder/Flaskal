@@ -41,19 +41,19 @@
   </h2>
   <div class="mb-4">
     <label for="title" class="block mb-2">Title</label>
-    <input type="text" class="form-input" placeholder="Poll Title" bind:value={title} required>
+    <input type="text" class="form-input" placeholder="Poll Title" bind:value={title} required maxlength="128">
   </div>
   <div class="mb-4">
     <label for="options" class="block mb-2">Options</label>
-    <input type="text" class="form-input" placeholder="Option 1" bind:value={options[0]} required>
+    <input type="text" class="form-input" placeholder="Option 1" bind:value={options[0]} required maxlength="128">
   </div>
   <div class="mb-4">
-    <input type="text" class="form-input" placeholder="Option 2" bind:value={options[1]} required>
+    <input type="text" class="form-input" placeholder="Option 2" bind:value={options[1]} required maxlength="128">
   </div>
   {#each new Array(numOptions - 2).fill(2).map((n, i) => n + i) as num}
     <div class="flex w-full mb-4">
       <input type="text" class="border rounded-l-md py-1.5 px-3 flex-grow" 
-        placeholder="Option {num + 1}" bind:value={options[num]} required>
+        placeholder="Option {num + 1}" bind:value={options[num]} required maxlength="128">
       <span class="border rounded-r-md px-2 flex items-center bg-gray-100">
         <button type="button" class="btn-close" on:click={removeOption}></button>
       </span>
