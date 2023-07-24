@@ -38,7 +38,7 @@
       &nbsp;- {formatRelativeDate(new Date(comment.timestamp))}
     </small>
   </h6>
-  <p>{comment.content}</p>
+  <p class="break-all">{comment.content}</p>
   {#if deletable}
     <div class="flex mt-1">
       <button on:click={deleteComment} class="flex items-center hover:bg-gray-200 duration-200 rounded-md py-1 px-2">

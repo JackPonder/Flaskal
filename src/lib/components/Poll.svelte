@@ -54,7 +54,7 @@
     {formatRelativeDate(new Date(poll.timestamp))}
   </small>
   <div class="flex justify-between mb-2">
-    <h4 class="text-xl">{poll.title}</h4>
+    <h4 class="text-xl break-all">{poll.title}</h4>
     {#if poll.tag}
       <a href={filterByTagLink} class="flex items-center bg-gray-500 text-white rounded-md px-2">
         {poll.tag}
