@@ -11,7 +11,8 @@ const timeUnits = {
 } as const;
 
 export const formatRelativeDate = (date: Date): string => {
-    const difference = date.getTime() - new Date().getTime();
+    const now = new Date();
+    const difference = date.getTime() - (now.getTime() + now.getTimezoneOffset() * 60000);
 
     for (const [unit, msPerUnit] of Object.entries(timeUnits)) {
         if (Math.abs(difference) >= msPerUnit) {

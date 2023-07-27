@@ -16,7 +16,7 @@
     filterByTagLink = "/?" + params.toString();
   }
 
-  let vote: number;
+  let vote: string;
 
   const submitVote = async () => {
     if ($user === null) {
@@ -24,7 +24,7 @@
       return;
     }
 
-    const response = await api.patch(`/polls/${poll.id}/vote`, {vote});
+    const response = await api.patch(`/polls/${poll.id}/vote`, { vote });
     if (!response.ok) {
       alerts.set("Something went wrong.", "danger");
       return;
@@ -75,7 +75,7 @@
   {:else}
     <form on:submit|preventDefault={submitVote}>
       {#each poll.options as option}
-        <button class="btn-white w-full mb-2" type="submit" on:click={() => vote = option.id}>
+        <button class="btn-white w-full mb-2" type="submit" on:click={() => vote = option.name}>
           {option.name}
         </button>
       {/each}

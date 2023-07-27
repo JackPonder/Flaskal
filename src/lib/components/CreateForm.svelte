@@ -15,7 +15,7 @@
   ];
 
   let formRef: HTMLFormElement;
-  let title: string, tag: string;
+  let title: string, tag: string | null;
   let options: string[] = [];
   
   const submitPoll = async () => {
@@ -24,7 +24,7 @@
       return;
     }
 
-    const response = await api.post("/polls", {title, tag, options});
+    const response = await api.post("/polls", { title, tag, options });
     if (!response.ok) {
       alerts.set("Something went wrong.", "danger");
       return;
@@ -64,7 +64,7 @@
       Add Option
     </button>
     <select class="border rounded-md py-1.5 px-3 mb-1" bind:value={tag}>
-      <option value="">Add Tag</option>
+      <option value={null}>Add Tag</option>
       {#each tagOptions as tag}
         <option value={tag}>{tag}</option>
       {/each}

@@ -16,7 +16,6 @@ export type PollSchema = {
 };
 
 type PollOptionSchema = {
-    id: number;
     name: string;
     votes: number;
     percentage: number;
