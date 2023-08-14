@@ -23,8 +23,8 @@ export const load: PageServerLoad = async ({ params }) => {
 };
 
 export const actions: Actions = {
-    comment: async ({ request, locals, params }) => {
-        if (locals.user === null) {
+    comment: async ({ request, cookies, params }) => {
+        if (!cookies.get("accessToken")) {
             return fail(400, {  error: "You must be logged in to comment." });
         }
 
@@ -32,8 +32,7 @@ export const actions: Actions = {
 
         const commentResponse = await api.post(`/polls/${params.slug}/comments`, {
             content: data.get("content"),
-        });
-
+        }, { authorization: `Bearer ${cookies.get("accessToken")}` });
         if (!commentResponse.ok) {
             return fail(400, { error: "Something went wrong." });
         }

@@ -5,11 +5,11 @@ import { api } from "$lib/server/api";
 export const actions: Actions = {
     register: async ({ request, cookies }) => {
         const data = await request.formData();
+
+        const username = data.get("username") as string;
+        const password = data.get("password") as string;
         
-        const userResponse = await api.post("/users", {
-            username: data.get("username"),
-            password: data.get("password"),
-        });
+        const userResponse = await api.post("/users", { username, password });
         if (!userResponse.ok) {
             return fail(400, { error: "Something went wrong" })
         }
@@ -33,7 +33,7 @@ export const actions: Actions = {
 
         const tokenResponse = await api.post("/tokens", undefined, {
             authorization: `Basic ${btoa(`${username}:${password}`)}`
-          });
+        });
         if (!tokenResponse.ok) {
             return fail(400, { error: "Invalid username or password" });
         }

@@ -22,7 +22,7 @@
     <form action="?/comment" method="post" class="card p-4" use:enhance={formEnhancement}>
       <label for="comment" class="block mb-2">Add a comment</label>
       <div class="w-full flex justify-between">
-        <textarea class="form-input !rounded-r-none" name="comment" required
+        <textarea class="form-input !rounded-r-none" name="content" required
           placeholder="Add to the discussion!" rows=2></textarea>
         <button type="submit" disabled={creating}
           class="btn-white !border-l-0 !rounded-l-none">

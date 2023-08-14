@@ -1,8 +1,10 @@
+import type { PageServerLoad } from "./$types";
 import type { UserSchema, PollSchema, CommentSchema } from "$lib/schemas";
+
 import { api } from "$lib/server/api";
 import { error } from "@sveltejs/kit";
 
-export async function load({ params }) {
+export const load: PageServerLoad = async ({ params }) => {
     const userRes = await api.get(`/users/${params.slug}`);
     if (!userRes.ok) {
         throw error(userRes.status);

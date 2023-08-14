@@ -5,7 +5,7 @@ const alertsStore = () => {
 
     return {
         subscribe,
-        set: (message: string, type: string) => set({ message, type }),
+        set: (message: string, type: "danger" | "info") => set({ message, type }),
         clear: () => set({ message: "", type: "" }),
     };
 }
