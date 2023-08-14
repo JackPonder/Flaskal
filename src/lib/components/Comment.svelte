@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { CommentSchema } from "$lib/schemas";
   import { formatRelativeDate } from "$lib/utils";
-  import { api } from "$lib/api";
-  import { alerts } from "$lib/stores";
 
   export let comment: CommentSchema;
   export let link: "Poll" | "User" = "User";
@@ -10,16 +8,7 @@
 
   let ref: HTMLElement;
 
-  const deleteComment = async () => {
-    const res = await api.delete(`/comments/${comment.id}`);
-    if (!res.ok) {
-      alerts.set("Something went wrong", "danger");
-      return;
-    }
-
-    alerts.set("Successfully deleted comment", "info");
-    ref.remove();
-  }
+  const deleteComment = async () => {}
 </script>
 
 <div class="card p-4" bind:this={ref}>

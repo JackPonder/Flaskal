@@ -1,5 +1,4 @@
 import type { HttpMethod } from "@sveltejs/kit";
-import { browser } from "$app/environment";
 import { PUBLIC_API_BASE_URL } from "$env/static/public";
 
 type RequestOptions = {
@@ -20,8 +19,7 @@ export const api = {
                 method: options.method,
                 headers: {
                     "content-type": "application/json",
-                    "authorization": options.authorization || 
-                        `Bearer ${browser ? localStorage.getItem("accessToken") || "" : ""}`,
+                    "authorization": options.authorization ?? "",
                 },
                 body: JSON.stringify(options.body)
             });

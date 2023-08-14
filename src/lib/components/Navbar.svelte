@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { modals, user } from "$lib/stores";
+  import { page } from "$app/stores";
+  import { modals } from "$lib/stores";
 </script>
 
 <nav class="bg-gray-900 py-3 px-4 flex justify-between sticky top-0 z-10">
@@ -7,9 +8,9 @@
     <img src="/icons/flask.svg" class="flex items-center h-6 mr-2" alt="">
     Flaskal
   </a>
-  {#if $user}
-    <a class="text-white self-center" href={`/users/${$user.username}`}>
-      {$user.username}
+  {#if $page.data.currentUser}
+    <a class="text-white self-center" href={`/users/${$page.data.currentUser.username}`}>
+      {$page.data.currentUser.username}
     </a>
   {:else}
     <button class="text-white" on:click={() => modals.set(1)}>

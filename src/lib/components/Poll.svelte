@@ -1,7 +1,5 @@
 <script lang="ts">
   import type { PollSchema } from "$lib/schemas";
-  import { api } from "$lib/api";
-  import { user, alerts } from "$lib/stores";
   import { formatRelativeDate } from "$lib/utils";
   import { page } from "$app/stores";
 
@@ -18,33 +16,11 @@
 
   let vote: string;
 
-  const submitVote = async () => {
-    if ($user === null) {
-      alerts.set("You must be logged in to vote.", "danger");
-      return;
-    }
-
-    const response = await api.patch(`/polls/${poll.id}/vote`, { vote });
-    if (!response.ok) {
-      alerts.set("Something went wrong.", "danger");
-      return;
-    }
-    
-    poll = response.body;
-  }
+  const submitVote = async () => {}
 
   let ref: HTMLElement;
 
-  const deletePoll = async () => {
-    const res = await api.delete(`/polls/${poll.id}`);
-    if (!res.ok) {
-      alerts.set("Something went wrong", "danger");
-      return;
-    }
-
-    alerts.set("Successfully deleted poll", "info");
-    ref.remove();
-  }
+  const deletePoll = async () => {}
 </script>
 
 <div class="card p-6" bind:this={ref}>
@@ -61,7 +37,7 @@
       </a>
     {/if}  
   </div>
-  {#if $user ? poll.voters.includes($user.username) : true}
+  {#if $page.data.currentUser ? poll.voters.includes($page.data.currentUser.username) : true}
     {#each poll.options as option}
       <div class="mb-2">
         <div>{option.name}</div>

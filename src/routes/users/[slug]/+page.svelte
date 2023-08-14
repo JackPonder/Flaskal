@@ -1,13 +1,7 @@
 <script lang="ts">
   import { Poll, Comment } from "$lib/components";
-  import { user } from "$lib/stores.js";
 
   export let data;
-
-  const logout = () => {
-    localStorage.removeItem("accessToken");
-    user.set(null);
-  }
 
   enum DisplayOptions { 
     Polls = "Polls", 
@@ -29,8 +23,10 @@
       <img src="/icons/user.svg" alt="" class="h-40 my-6">
       <h2 class="text-2xl font-semibold">{data.user.username}</h2>
       <h4 class="text-lgxl mb-3">Joined {new Date(data.user.dateJoined).toDateString()}</h4>
-      {#if $user?.username === data.user.username}
-        <button class="btn-blue w-full" on:click={logout}>Logout</button>        
+      {#if data.currentUser?.username === data.user.username}
+        <form action="/auth?/logout" method="post">
+          <button type="submit" class="btn-blue w-full">Logout</button> 
+        </form>     
       {/if}
     </div>
   </div>
@@ -45,7 +41,7 @@
     </div>
     {#if display === DisplayOptions.Polls}
       {#each data.polls as poll}
-        <Poll {poll} deletable={poll.creator === $user?.username} />
+        <Poll {poll} deletable={poll.creator === data.currentUser?.username} />
       {:else}
         <div class="card p-4 text-center">
           Looks like {data.user.username} hasn't created any polls.
@@ -53,7 +49,7 @@
       {/each}
     {:else if display === DisplayOptions.Comments}
       {#each data.comments as comment}
-        <Comment {comment} link="Poll" deletable={comment.creator === $user?.username} />
+        <Comment {comment} link="Poll" deletable={comment.creator === data.currentUser?.username} />
       {:else}
         <div class="card p-4 text-center">
           Looks like {data.user.username} hasn't created any comments.
