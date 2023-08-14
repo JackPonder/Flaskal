@@ -18,26 +18,56 @@
   opacity: .5;
 }
 
-.btn {
-  @apply text-center rounded-md duration-200
+.btn-blue {
+  @apply 
+    bg-blue-500 text-white rounded-md 
+    text-center py-1.5 px-4 duration-200 
 }
 
-.btn-blue {
-  @apply btn text-white py-1.5 bg-blue-500 hover:bg-blue-600
+.btn-blue:not(:disabled) {
+  @apply
+    hover:bg-blue-700 cursor-pointer
+    active:ring-4 active:ring-blue-400
 }
 
 .btn-blue-lg {
-  @apply btn text-white text-xl py-2.5 bg-blue-500 hover:bg-blue-600
+  @apply 
+    bg-blue-500 text-white rounded-md 
+    text-center text-xl py-2.5 px-4 duration-200 
+}
+
+.btn-blue-lg:not(:disabled) {
+  @apply
+    hover:bg-blue-700 cursor-pointer
+    active:ring-4 active:ring-blue-400
 }
 
 .btn-white {
-  @apply btn text-gray-500 border border-gray-500 py-1.5 hover:text-white hover:bg-gray-500
+  @apply 
+    bg-white text-gray-400 border rounded-md 
+    text-center py-1.5 px-4 duration-200 
+}
+
+.btn-white:not(:disabled) {
+  @apply
+    hover:text-white hover:bg-slate-500 hover:border-slate-500
+    active:ring-4 active:ring-slate-400 cursor-pointer
 }
 
 .btn-white-lg {
-  @apply btn text-gray-500 text-xl border border-gray-500 py-2.5 hover:text-white hover:bg-gray-500
+  @apply
+    bg-white text-gray-400 border rounded-md 
+    text-center text-xl py-2.5 px-4 duration-200 
+}
+
+.btn-white-lg:not(:disabled) {
+  @apply
+    hover:text-white hover:bg-slate-500 hover:border-slate-500
+    active:ring-4 active:ring-slate-400 cursor-pointer
 }
 
 .form-input {
-  @apply border rounded-md w-full py-1.5 px-3
+  @apply 
+    border rounded-md w-full py-1.5 px-3 outline-none duration-200 
+    focus:ring-4 focus:ring-blue-200 focus:border-blue-300
 }
