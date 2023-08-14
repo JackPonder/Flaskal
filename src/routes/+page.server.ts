@@ -1,7 +1,7 @@
 import type { PageServerLoad } from "./$types";
 import type { PollSchema } from "$lib/schemas";
 
-import { api } from "$lib/api";
+import { api } from "$lib/server/api";
 import { error } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ url }) => {

@@ -1,8 +1,8 @@
-import type { PageServerLoad } from "./$types.js";
+import type { PageServerLoad } from "./$types";
 import type { Actions } from "@sveltejs/kit";
 import type { PollSchema, CommentSchema } from "$lib/schemas";
 
-import { api } from "$lib/api";
+import { api } from "$lib/server/api";
 import { error, fail } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ params }) => {

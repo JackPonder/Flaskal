@@ -1,5 +1,5 @@
 import type { UserSchema, PollSchema, CommentSchema } from "$lib/schemas";
-import { api } from "$lib/api";
+import { api } from "$lib/server/api";
 import { error } from "@sveltejs/kit";
 
 export async function load({ params }) {

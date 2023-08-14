@@ -1,6 +1,6 @@
 import type { Handle } from "@sveltejs/kit";
 
-import { api } from "$lib/api";
+import { api } from "$lib/server/api";
 
 export const handle: Handle = async ({ event, resolve }) => {
     event.locals.user = null;

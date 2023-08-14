@@ -1,5 +1,5 @@
 import type { HttpMethod } from "@sveltejs/kit";
-import { PUBLIC_API_BASE_URL } from "$env/static/public";
+import { API_BASE_URL } from "$env/static/private";
 
 type RequestOptions = {
     method?: HttpMethod;
@@ -15,7 +15,7 @@ export const api = {
         let response: Response;
 
         try {
-            response = await fetch(PUBLIC_API_BASE_URL + options.path + queryParams, {
+            response = await fetch(API_BASE_URL + options.path + queryParams, {
                 method: options.method,
                 headers: {
                     "content-type": "application/json",

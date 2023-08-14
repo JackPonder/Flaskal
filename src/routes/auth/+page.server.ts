@@ -1,6 +1,6 @@
 import { fail, type Actions } from "@sveltejs/kit";
 
-import { api } from "$lib/api";
+import { api } from "$lib/server/api";
 
 export const actions: Actions = {
     register: async ({ request, cookies }) => {
