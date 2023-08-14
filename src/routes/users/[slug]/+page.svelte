@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { enhance } from "$app/forms";
   import { Poll, Comment } from "$lib/components";
 
   export let data;
@@ -24,7 +25,7 @@
       <h2 class="text-2xl font-semibold">{data.user.username}</h2>
       <h4 class="text-lgxl mb-3">Joined {new Date(data.user.dateJoined).toDateString()}</h4>
       {#if data.currentUser?.username === data.user.username}
-        <form action="/auth?/logout" method="post">
+        <form action="/auth?/logout" method="post" use:enhance>
           <button type="submit" class="btn-blue w-full">Logout</button> 
         </form>     
       {/if}

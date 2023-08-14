@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { PollSchema } from "$lib/schemas";
+  import { enhance } from "$app/forms";
   import { formatRelativeDate } from "$lib/utils";
   import { page } from "$app/stores";
 
@@ -49,7 +50,7 @@
       </div>
     {/each}
   {:else}
-    <form on:submit|preventDefault={submitVote}>
+    <form on:submit|preventDefault={submitVote} use:enhance>
       {#each poll.options as option}
         <button class="btn-white w-full mb-2" type="submit" on:click={() => vote = option.name}>
           {option.name}
