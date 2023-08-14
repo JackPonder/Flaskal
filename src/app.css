@@ -24,6 +24,10 @@
     text-center py-1.5 px-4 duration-200 
 }
 
+.btn-blue:disabled {
+  @apply bg-blue-400
+}
+
 .btn-blue:not(:disabled) {
   @apply
     hover:bg-blue-700 cursor-pointer
