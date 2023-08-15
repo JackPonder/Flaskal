@@ -5,7 +5,7 @@
 </script>
 
 {#each data.polls as poll}
-  <Poll {poll} />
+  <Poll {poll} deletable={data.currentUser?.username === poll.creator} />
 {:else}
   <div class="card p-4 text-center">
     Looks like {data.user.username} hasn't created any polls

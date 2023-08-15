@@ -60,10 +60,13 @@
       {poll.numComments} {poll.numComments === 1 ? "Comment" : "Comments"}      
     </a>
     {#if deletable}
-      <button class="flex items-center hover:bg-gray-200 duration-200 rounded-md py-1 px-2">
-        <img src="/icons/delete.svg" alt="" class="h-4 mr-2" />
-        Delete
-      </button>
+      <form action="?/delete" method="post">
+        <button type="submit" name="pollId" value={poll.id}
+          class="flex items-center hover:bg-gray-200 duration-200 rounded-md py-1 px-2">
+          <img src="/icons/delete.svg" alt="Delete" class="h-4 mr-2" />
+          Delete
+        </button>
+      </form>
     {/if}
   </div>
 </div>

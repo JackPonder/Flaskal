@@ -26,10 +26,13 @@
   <p class="break-all">{comment.content}</p>
   {#if deletable}
     <div class="flex mt-1">
-      <button class="flex items-center hover:bg-gray-200 duration-200 rounded-md py-1 px-2">
-        <img src="/icons/delete.svg" alt="" class="h-4 mr-2" />
-        Delete
-      </button>
+      <form action="?/delete" method="post">
+        <button type="submit" name="commentId" value={comment.id}
+          class="flex items-center hover:bg-gray-200 duration-200 rounded-md py-1 px-2">
+          <img src="/icons/delete.svg" alt="Delete" class="h-4 mr-2" />
+          Delete
+        </button>
+      </form>
     </div>
   {/if}
 </div>
