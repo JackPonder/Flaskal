@@ -32,11 +32,11 @@
       </a>
     </div>
     <div class="card p-4 grid grid-cols-2">
-      <a href={sortByLinks.new} class="text-center rounded-md py-1" 
+      <a href={sortByLinks.new} class="text-center rounded-md py-1 duration-200" 
         class:active={["new", null].includes($page.url.searchParams.get("sort"))}>
         New
       </a>
-      <a href={sortByLinks.top} class="text-center rounded-md py-1" 
+      <a href={sortByLinks.top} class="text-center rounded-md py-1 duration-200" 
         class:active={$page.url.searchParams.get("sort") === "top"}>
         Top
       </a>

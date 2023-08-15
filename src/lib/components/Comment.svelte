@@ -1,31 +1,31 @@
 <script lang="ts">
+  import type { SubmitFunction } from "@sveltejs/kit";
   import type { CommentSchema } from "$lib/schemas";
+
+  import { enhance } from "$app/forms";
   import { formatRelativeDate } from "$lib/utils";
-  import { api } from "$lib/api";
   import { alerts } from "$lib/stores";
 
   export let comment: CommentSchema;
   export let link: "Poll" | "User" = "User";
   export let deletable = false;
 
-  let ref: HTMLElement;
-
-  const deleteComment = async () => {
-    const res = await api.delete(`/comments/${comment.id}`);
-    if (!res.ok) {
-      alerts.set("Something went wrong", "danger");
-      return;
+  const formEnhancement: SubmitFunction = async () => {
+    return async ({ update, result }) => {
+      await update();
+      if (result.type === "failure") {
+        alerts.set(result.data?.error, "danger");
+      } else if (result.type === "success") {
+        alerts.set("Successfully deleted comment.", "info");
+      }
     }
-
-    alerts.set("Successfully deleted comment", "info");
-    ref.remove();
   }
 </script>
 
-<div class="card p-4" bind:this={ref}>
+<div class="card p-4">
   <h6 class="flex items-baseline mb-1" >
     {#if link === "User"}
-      <a class="font-semibold hover:underline" href={`/users/${comment.creator}`}>
+      <a class="font-semibold hover:underline" href={`/users/${comment.creator}/polls`}>
         {comment.creator}
       </a>
     {:else if link === "Poll"}
@@ -41,10 +41,13 @@
   <p class="break-all">{comment.content}</p>
   {#if deletable}
     <div class="flex mt-1">
-      <button on:click={deleteComment} class="flex items-center hover:bg-gray-200 duration-200 rounded-md py-1 px-2">
-        <img src="/icons/delete.svg" alt="" class="h-4 mr-2" />
-        Delete
-      </button>
+      <form action="?/delete" method="post" use:enhance={formEnhancement}>
+        <button type="submit" name="commentId" value={comment.id}
+          class="flex items-center hover:bg-gray-200 duration-200 rounded-md py-1 px-2">
+          <img src="/icons/delete.svg" alt="Delete" class="h-4 mr-2" />
+          Delete
+        </button>
+      </form>
     </div>
   {/if}
 </div>

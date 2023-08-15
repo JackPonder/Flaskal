@@ -1,9 +1,11 @@
 <script lang="ts">
+  import type { SubmitFunction } from "@sveltejs/kit";
   import type { PollSchema } from "$lib/schemas";
-  import { api } from "$lib/api";
-  import { user, alerts } from "$lib/stores";
-  import { formatRelativeDate } from "$lib/utils";
+
+  import { enhance } from "$app/forms";
   import { page } from "$app/stores";
+  import { alerts } from "$lib/stores";
+  import { formatRelativeDate } from "$lib/utils";
 
   export let poll: PollSchema;
   export let deletable = false;
@@ -16,41 +18,22 @@
     filterByTagLink = "/?" + params.toString();
   }
 
-  let vote: string;
-
-  const submitVote = async () => {
-    if ($user === null) {
-      alerts.set("You must be logged in to vote.", "danger");
-      return;
+  const formEnhancement: SubmitFunction = async () => {
+    return async ({ update, result }) => {
+      await update();
+      if (result.type === "failure") {
+        alerts.set(result.data?.error, "danger");
+      } else if (result.type === "success") {
+        alerts.set("Successfully deleted poll.", "info");
+      }
     }
-
-    const response = await api.patch(`/polls/${poll.id}/vote`, { vote });
-    if (!response.ok) {
-      alerts.set("Something went wrong.", "danger");
-      return;
-    }
-    
-    poll = response.body;
-  }
-
-  let ref: HTMLElement;
-
-  const deletePoll = async () => {
-    const res = await api.delete(`/polls/${poll.id}`);
-    if (!res.ok) {
-      alerts.set("Something went wrong", "danger");
-      return;
-    }
-
-    alerts.set("Successfully deleted poll", "info");
-    ref.remove();
   }
 </script>
 
-<div class="card p-6" bind:this={ref}>
+<div class="card p-6">
   <small>
     Posted by 
-    <a href={`/users/${poll.creator}`} class="hover:underline">{poll.creator}</a> 
+    <a href={`/users/${poll.creator}/polls`} class="hover:underline">{poll.creator}</a> 
     {formatRelativeDate(new Date(poll.timestamp))}
   </small>
   <div class="flex justify-between mb-2">
@@ -61,7 +44,7 @@
       </a>
     {/if}  
   </div>
-  {#if $user ? poll.voters.includes($user.username) : true}
+  {#if $page.data.currentUser ? poll.voters.includes($page.data.currentUser.username) : true}
     {#each poll.options as option}
       <div class="mb-2">
         <div>{option.name}</div>
@@ -73,9 +56,9 @@
       </div>
     {/each}
   {:else}
-    <form on:submit|preventDefault={submitVote}>
+    <form action={`/polls/${poll.id}?/vote`} method="post" use:enhance>
       {#each poll.options as option}
-        <button class="btn-white w-full mb-2" type="submit" on:click={() => vote = option.name}>
+        <button class="btn-white w-full mb-2" type="submit" name="vote" value={option.name}>
           {option.name}
         </button>
       {/each}
@@ -91,10 +74,13 @@
       {poll.numComments} {poll.numComments === 1 ? "Comment" : "Comments"}      
     </a>
     {#if deletable}
-      <button on:click={deletePoll} class="flex items-center hover:bg-gray-200 duration-200 rounded-md py-1 px-2">
-        <img src="/icons/delete.svg" alt="" class="h-4 mr-2" />
-        Delete
-      </button>
+      <form action="?/delete" method="post" use:enhance={formEnhancement}>
+        <button type="submit" name="pollId" value={poll.id}
+          class="flex items-center hover:bg-gray-200 duration-200 rounded-md py-1 px-2">
+          <img src="/icons/delete.svg" alt="Delete" class="h-4 mr-2" />
+          Delete
+        </button>
+      </form>
     {/if}
   </div>
 </div>

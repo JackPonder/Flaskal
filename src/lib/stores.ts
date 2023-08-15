@@ -1,29 +1,26 @@
-import type { UserSchema } from "./schemas";
 import { writable } from "svelte/store";
-import { api } from "./api";
-
-const userStore = () => {
-    const { subscribe, set } = writable<UserSchema | null>(null);
-
-    api.get("/users/self").then(res => {
-        set(res.ok ? res.body : null);
-    });
-
-    return { subscribe, set };
-}
 
 const alertsStore = () => {
     const { subscribe, set } = writable({ message: "", type: "" });
 
     return {
         subscribe,
-        set: (message: string, type: string) => set({ message, type }),
+        set: (message: string, type: "danger" | "info") => set({ message, type }),
         clear: () => set({ message: "", type: "" }),
     };
-}
+};
 
-export const user = userStore();
+const modalsStore = () => {
+    const { subscribe, set } = writable(0);
+
+    return {
+        subscribe,
+        showLogin: () => set(1),
+        showRegister: () => set(2),
+        clear: () => set(0),
+    };
+};
 
 export const alerts = alertsStore();
 
-export const modals = writable(0);
+export const modals = modalsStore();

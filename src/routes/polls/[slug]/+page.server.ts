@@ -1,8 +1,11 @@
+import type { PageServerLoad } from "./$types";
+import type { Actions } from "@sveltejs/kit";
 import type { PollSchema, CommentSchema } from "$lib/schemas";
-import { api } from "$lib/api";
-import { error } from "@sveltejs/kit";
 
-export async function load({ params }) {
+import { api } from "$lib/server/api";
+import { error, fail } from "@sveltejs/kit";
+
+export const load: PageServerLoad = async ({ params }) => {
     const pollRes = await api.get(`/polls/${params.slug}`);
     if (!pollRes.ok) {
         throw error(pollRes.status);
@@ -17,4 +20,37 @@ export async function load({ params }) {
         poll: pollRes.body as PollSchema, 
         comments: commentsRes.body as CommentSchema[],
     };
-}
+};
+
+export const actions: Actions = {
+    comment: async ({ request, cookies, params }) => {
+        if (!cookies.get("accessToken")) {
+            return fail(400, {  error: "You must be logged in to comment." });
+        }
+
+        const data = await request.formData();
+
+        const commentResponse = await api.post(`/polls/${params.slug}/comments`, {
+            content: data.get("content"),
+        }, { authorization: `Bearer ${cookies.get("accessToken")}` });
+        if (!commentResponse.ok) {
+            return fail(400, { error: "Something went wrong." });
+        }
+    },
+    
+    vote: async ({ request, cookies, params }) => {
+        if (!cookies.get("accessToken")) {
+            return fail(400, { error: "You must be logged in to vote" });
+        }
+
+        const data = await request.formData(); 
+        const vote = data.get("vote");
+
+        const voteResponse = await api.patch(`/polls/${params.slug}/vote`, {
+            vote,
+        }, { authorization: `Bearer ${cookies.get("accessToken")}` });
+        if (!voteResponse.ok) {
+            return fail(400, { error: "Something went wrong" });
+        }
+    },
+};
