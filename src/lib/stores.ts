@@ -8,8 +8,19 @@ const alertsStore = () => {
         set: (message: string, type: "danger" | "info") => set({ message, type }),
         clear: () => set({ message: "", type: "" }),
     };
-}
+};
+
+const modalsStore = () => {
+    const { subscribe, set } = writable(0);
+
+    return {
+        subscribe,
+        showLogin: () => set(1),
+        showRegister: () => set(2),
+        clear: () => set(0),
+    };
+};
 
 export const alerts = alertsStore();
 
-export const modals = writable(0);
+export const modals = modalsStore();

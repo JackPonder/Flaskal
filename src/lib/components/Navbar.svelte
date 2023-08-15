@@ -13,7 +13,7 @@
       {$page.data.currentUser.username}
     </a>
   {:else}
-    <button class="text-white" on:click={() => modals.set(1)}>
+    <button class="text-white" on:click={modals.showLogin}>
       Log In
     </button>
   {/if}

@@ -2,6 +2,7 @@
   import type { SubmitFunction } from '@sveltejs/kit';
   import { enhance } from '$app/forms';
   import { Poll, Comment, SideContent } from '$lib/components';
+  import { alerts } from '$lib/stores.js';
 
   export let data;
 
@@ -9,8 +10,13 @@
 
   const formEnhancement: SubmitFunction = async () => {
     creating = true
-    return async ({ update }) => {
+    return async ({ update, result }) => {
       await update();
+      if (result.type === "failure") {
+        alerts.set(result.data?.error, "danger");
+      } else if (result.type === "success") {
+        alerts.set("Successfully created comment.", "info");
+      }
       creating = false;
     }
   }

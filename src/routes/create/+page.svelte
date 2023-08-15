@@ -3,6 +3,7 @@
 
   import { enhance } from "$app/forms";
   import { SideContent } from "$lib/components";
+  import { alerts } from "$lib/stores";
 
   let numOptions = 2;
 
@@ -20,8 +21,13 @@
 
   const formEnhancement: SubmitFunction = async () => {
     creating = true;
-    return async ({ update }) => {
+    return async ({ update, result }) => {
       await update();
+      if (result.type === "failure") {
+        alerts.set(result.data?.error, "danger");
+      } else if (result.type === "success") {
+        alerts.set("Successfully created poll.", "info");
+      }
       creating = false;
     }
   }
@@ -50,11 +56,11 @@
       {#each new Array(numOptions - 2).fill(3).map((n, i) => n + i) as num}
         <div class="flex w-full mb-4">
           <input type="text" name="options" placeholder="Option {num}"
-            class="border rounded-l-md py-1.5 px-3 outline-none flex-grow" required maxlength=128>
-          <span class="border rounded-r-md px-2 flex items-center bg-gray-100">
+            class="form-input !rounded-r-none" required maxlength=128>
+          <span class="border border-l-0 rounded-r-md px-2 flex items-center bg-gray-100">
             <button type="button" class="btn-close" on:click={removeOption}></button>
           </span>
-        </div>        
+        </div>
       {/each}
       <div class="grid md:grid-cols-3 gap-4">
         <button class="btn-white mb-1" type="button" on:click={addOption}>

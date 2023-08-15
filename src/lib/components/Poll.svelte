@@ -1,7 +1,10 @@
 <script lang="ts">
+  import type { SubmitFunction } from "@sveltejs/kit";
   import type { PollSchema } from "$lib/schemas";
+
   import { enhance } from "$app/forms";
   import { page } from "$app/stores";
+  import { alerts } from "$lib/stores";
   import { formatRelativeDate } from "$lib/utils";
 
   export let poll: PollSchema;
@@ -13,6 +16,17 @@
     const params = new URLSearchParams($page.url.searchParams);
     params.set("tag", poll.tag || "");
     filterByTagLink = "/?" + params.toString();
+  }
+
+  const formEnhancement: SubmitFunction = async () => {
+    return async ({ update, result }) => {
+      await update();
+      if (result.type === "failure") {
+        alerts.set(result.data?.error, "danger");
+      } else if (result.type === "success") {
+        alerts.set("Successfully deleted poll.", "info");
+      }
+    }
   }
 </script>
 
@@ -60,7 +74,7 @@
       {poll.numComments} {poll.numComments === 1 ? "Comment" : "Comments"}      
     </a>
     {#if deletable}
-      <form action="?/delete" method="post">
+      <form action="?/delete" method="post" use:enhance={formEnhancement}>
         <button type="submit" name="pollId" value={poll.id}
           class="flex items-center hover:bg-gray-200 duration-200 rounded-md py-1 px-2">
           <img src="/icons/delete.svg" alt="Delete" class="h-4 mr-2" />
