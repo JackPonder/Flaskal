@@ -36,5 +36,21 @@ export const actions: Actions = {
         if (!commentResponse.ok) {
             return fail(400, { error: "Something went wrong." });
         }
-    }
+    },
+    
+    vote: async ({ request, cookies, params }) => {
+        if (!cookies.get("accessToken")) {
+            return fail(400, { error: "You must be logged in to vote" });
+        }
+
+        const data = await request.formData(); 
+        const vote = data.get("vote");
+
+        const voteResponse = await api.patch(`/polls/${params.slug}/vote`, {
+            vote,
+        }, { authorization: `Bearer ${cookies.get("accessToken")}` });
+        if (!voteResponse.ok) {
+            return fail(400, { error: "Something went wrong" });
+        }
+    },
 };

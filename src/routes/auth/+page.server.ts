@@ -15,7 +15,7 @@ export const actions: Actions = {
         }
 
         const tokenResponse = await api.post("/tokens", undefined, {
-            authorization: `Basic ${btoa(`${data.get("username")}:${data.get("username")}`)}`,
+            authorization: `Basic ${btoa(`${username}:${password}`)}`,
         });
         if (!tokenResponse.ok) {
             return fail(400, { error: "Something went wrong" });

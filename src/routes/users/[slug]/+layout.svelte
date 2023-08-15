@@ -1,6 +1,6 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
-  import { Poll, Comment } from "$lib/components";
+  import { page } from "$app/stores";
 
   export let data;
 
@@ -8,8 +8,6 @@
     Polls = "Polls", 
     Comments = "Comments",
   };
-
-  let display = DisplayOptions.Polls;
 </script>
 
 <style lang="postcss">
@@ -34,28 +32,13 @@
   <div class="md:col-span-6">
     <div class="card p-4 grid grid-cols-2">
       {#each Object.values(DisplayOptions) as option}
-        <button class="text-center rounded-md py-1.5 duration-200" 
-            class:active={display === option} on:click={() => display = option}>
+        <a href={`/users/${$page.params.slug}/${option.toLowerCase()}`} 
+          class="text-center rounded-md py-1.5 duration-200"
+          class:active={$page.url.pathname.split("/").at(-1) == option.toLowerCase()}>
           {option}
-        </button>
+        </a>
       {/each}
     </div>
-    {#if display === DisplayOptions.Polls}
-      {#each data.polls as poll}
-        <Poll {poll} deletable={poll.creator === data.currentUser?.username} />
-      {:else}
-        <div class="card p-4 text-center">
-          Looks like {data.user.username} hasn't created any polls.
-        </div>      
-      {/each}
-    {:else if display === DisplayOptions.Comments}
-      {#each data.comments as comment}
-        <Comment {comment} link="Poll" deletable={comment.creator === data.currentUser?.username} />
-      {:else}
-        <div class="card p-4 text-center">
-          Looks like {data.user.username} hasn't created any comments.
-        </div>
-      {/each}    
-    {/if}
+    <slot />
   </div>
 </div>

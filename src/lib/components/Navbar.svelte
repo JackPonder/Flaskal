@@ -9,7 +9,7 @@
     Flaskal
   </a>
   {#if $page.data.currentUser}
-    <a class="text-white self-center" href={`/users/${$page.data.currentUser.username}`}>
+    <a class="text-white self-center" href={`/users/${$page.data.currentUser.username}/polls`}>
       {$page.data.currentUser.username}
     </a>
   {:else}

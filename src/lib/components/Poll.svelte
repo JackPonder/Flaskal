@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { PollSchema } from "$lib/schemas";
   import { enhance } from "$app/forms";
-  import { formatRelativeDate } from "$lib/utils";
   import { page } from "$app/stores";
+  import { formatRelativeDate } from "$lib/utils";
 
   export let poll: PollSchema;
   export let deletable = false;
@@ -14,20 +14,12 @@
     params.set("tag", poll.tag || "");
     filterByTagLink = "/?" + params.toString();
   }
-
-  let vote: string;
-
-  const submitVote = async () => {}
-
-  let ref: HTMLElement;
-
-  const deletePoll = async () => {}
 </script>
 
-<div class="card p-6" bind:this={ref}>
+<div class="card p-6">
   <small>
     Posted by 
-    <a href={`/users/${poll.creator}`} class="hover:underline">{poll.creator}</a> 
+    <a href={`/users/${poll.creator}/polls`} class="hover:underline">{poll.creator}</a> 
     {formatRelativeDate(new Date(poll.timestamp))}
   </small>
   <div class="flex justify-between mb-2">
@@ -50,9 +42,9 @@
       </div>
     {/each}
   {:else}
-    <form on:submit|preventDefault={submitVote} use:enhance>
+    <form action={`/polls/${poll.id}?/vote`} method="post" use:enhance>
       {#each poll.options as option}
-        <button class="btn-white w-full mb-2" type="submit" on:click={() => vote = option.name}>
+        <button class="btn-white w-full mb-2" type="submit" name="vote" value={option.name}>
           {option.name}
         </button>
       {/each}
@@ -68,7 +60,7 @@
       {poll.numComments} {poll.numComments === 1 ? "Comment" : "Comments"}      
     </a>
     {#if deletable}
-      <button on:click={deletePoll} class="flex items-center hover:bg-gray-200 duration-200 rounded-md py-1 px-2">
+      <button class="flex items-center hover:bg-gray-200 duration-200 rounded-md py-1 px-2">
         <img src="/icons/delete.svg" alt="" class="h-4 mr-2" />
         Delete
       </button>
