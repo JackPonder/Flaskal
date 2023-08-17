@@ -13,7 +13,7 @@ export const actions: Actions = {
         const response = await api.post("/polls", { 
             title: data.get("title"), 
             options: data.getAll("options"), 
-            tag: data.get("tag"),
+            tag: data.get("tag") || null,
         }, { authorization: `Bearer ${cookies.get("accessToken")}` });
         if (!response.ok) {
             return fail(400, { error: "Something went wrong." });
