@@ -18,7 +18,16 @@
     filterByTagLink = "/?" + params.toString();
   }
 
-  const formEnhancement: SubmitFunction = async () => {
+  const voteEnhancement: SubmitFunction = async () => {
+    return async ({ update, result }) => {
+      await update();
+      if (result.type === "failure") {
+        alerts.set(result.data?.error, "danger");
+      }
+    }
+  }
+
+  const deletePollEnhancement: SubmitFunction = async () => {
     return async ({ update, result }) => {
       await update();
       if (result.type === "failure") {
@@ -56,7 +65,7 @@
       </div>
     {/each}
   {:else}
-    <form action={`/polls/${poll.id}?/vote`} method="post" use:enhance>
+    <form action={`/polls/${poll.id}?/vote`} method="post" use:enhance={voteEnhancement}>
       {#each poll.options as option}
         <button class="btn-white w-full mb-2" type="submit" name="vote" value={option.name}>
           {option.name}
@@ -74,7 +83,7 @@
       {poll.numComments} {poll.numComments === 1 ? "Comment" : "Comments"}      
     </a>
     {#if deletable}
-      <form action="?/delete" method="post" use:enhance={formEnhancement}>
+      <form action="?/delete" method="post" use:enhance={deletePollEnhancement}>
         <button type="submit" name="pollId" value={poll.id}
           class="flex items-center hover:bg-gray-200 duration-200 rounded-md py-1 px-2">
           <img src="/icons/delete.svg" alt="Delete" class="h-4 mr-2" />
