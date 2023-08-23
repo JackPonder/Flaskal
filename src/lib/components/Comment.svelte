@@ -35,7 +35,7 @@
       </a>        
     {/if}
     <small>
-      &nbsp;- {formatRelativeDate(new Date(comment.timestamp))}
+      &nbsp;- {formatRelativeDate(new Date(comment.createdAt))}
     </small>
   </h6>
   <p class="break-all">{comment.content}</p>

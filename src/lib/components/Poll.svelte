@@ -43,7 +43,7 @@
   <small>
     Posted by 
     <a href={`/users/${poll.creator}/polls`} class="hover:underline">{poll.creator}</a> 
-    {formatRelativeDate(new Date(poll.timestamp))}
+    {formatRelativeDate(new Date(poll.createdAt))}
   </small>
   <div class="flex justify-between mb-2">
     <h4 class="text-xl break-all">{poll.title}</h4>

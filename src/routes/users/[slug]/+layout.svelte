@@ -21,7 +21,7 @@
     <div class="card p-4 sticky top-[70px] flex flex-col items-center">
       <img src="/icons/user.svg" alt="" class="h-40 my-6">
       <h2 class="text-2xl font-semibold">{data.user.username}</h2>
-      <h4 class="text-lgxl mb-3">Joined {new Date(data.user.dateJoined).toDateString()}</h4>
+      <h4 class="text-lgxl mb-3">Joined {new Date(data.user.createdAt).toDateString()}</h4>
       {#if data.currentUser?.username === data.user.username}
         <form action="/auth?/logout" method="post" use:enhance>
           <button type="submit" class="btn-blue w-full">Logout</button> 

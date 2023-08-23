@@ -1,6 +1,6 @@
 export type UserSchema = {
     username: string;
-    dateJoined: string;
+    createdAt: string;
 };
 
 export type PollSchema = {
@@ -12,7 +12,7 @@ export type PollSchema = {
     totalVotes: number;
     voters: string[];
     numComments: number;
-    timestamp: string;
+    createdAt: string;
 };
 
 type PollOptionSchema = {
@@ -28,5 +28,5 @@ export type CommentSchema = {
     pollId: number;
     pollTitle: string;
     content: string;
-    timestamp: string;
+    createdAt: string;
 };
